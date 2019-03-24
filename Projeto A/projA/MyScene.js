@@ -22,6 +22,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.prism = new MyPrism(this,4,1);
+        this.skybox = new MyCubeMap(this,600);
 
         //Objects connected to MyInterface
     }
@@ -58,7 +59,8 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        this.prism.display();
+        //this.prism.display();
+        this.skybox.display();
 
         // ---- END Primitive drawing section
     }
