@@ -21,8 +21,9 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.prism = new MyPrism(this, 4, 1);
-        this.skybox = new MyCubeMap(this,300);
+        //this.prism = new MyPrism(this,8,1);
+        this.cylinder = new MyCylinder(this,10,1);
+        this.skybox = new MyCubeMap(this,600);
 
         //Objects connected to MyInterface
         this.displaySkyBox = true;
@@ -56,6 +57,7 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
+        this.lights[0].update();
         // Draw axis
         this.axis.display();
 
@@ -66,6 +68,8 @@ class MyScene extends CGFscene {
         //this.prism.display();
         if (this.displaySkyBox)
             this.skybox.display();
+        this.cylinder.display();
+        this.skybox.display();
 
         // ---- END Primitive drawing section
     }
