@@ -6,11 +6,11 @@ class MyCubeMap extends CGFobject {
         this.scalefactor = scalefactor;
 
         this.topTex = new CGFappearance(this.scene);
-        this.topTex.setAmbient(0.1, 0.1, 0.1, 1);
-        this.topTex.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.topTex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.topTex.setAmbient(1,1,1,1);
+        this.topTex.setDiffuse(0, 0, 0, 0);
+        this.topTex.setSpecular(0, 0, 0, 0);
         this.topTex.setShininess(10.0);
-        this.topTex.loadTexture('images/lmcity/lmcity_up.tga');
+        this.topTex.loadTexture('images/teste.jpg');
         this.topTex.setTextureWrap('REPEAT', 'REPEAT');
 
     }
@@ -20,7 +20,7 @@ class MyCubeMap extends CGFobject {
     }
 
     display() {
-        this.topTex.apply();
+    this.topTex.apply();
     this.scene.pushMatrix();
     this.scene.scale(this.scalefactor,this.scalefactor,this.scalefactor);
     this.scene.scale(-1,-1,-1);

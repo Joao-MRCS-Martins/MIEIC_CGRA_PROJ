@@ -1,7 +1,7 @@
 /**
-* MyScene
-* @constructor
-*/
+ * MyScene
+ * @constructor
+ */
 class MyScene extends CGFscene {
     constructor() {
         super();
@@ -21,10 +21,14 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.prism = new MyPrism(this,4,1);
-        this.skybox = new MyCubeMap(this,600);
+        this.prism = new MyPrism(this, 4, 1);
+        this.skybox = new MyCubeMap(this,300);
 
         //Objects connected to MyInterface
+        this.displaySkyBox = true;
+        this.prism = true;
+
+
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -60,7 +64,8 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         //this.prism.display();
-        this.skybox.display();
+        if (this.displaySkyBox)
+            this.skybox.display();
 
         // ---- END Primitive drawing section
     }
