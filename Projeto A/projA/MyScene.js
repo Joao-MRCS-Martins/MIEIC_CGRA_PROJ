@@ -23,10 +23,11 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         //this.prism = new MyPrism(this,8,1);
         this.cylinder = new MyCylinder(this,10,1);
-        this.skybox = new MyCubeMap(this,600);
+        this.skybox = new MyCubeMap(this,2);
+        this.house = new MyHouse(this);
 
         //Objects connected to MyInterface
-        this.displaySkyBox = true;
+        this.displaySkyBox = false;
         this.prism = true;
 
 
@@ -68,8 +69,8 @@ class MyScene extends CGFscene {
         //this.prism.display();
         if (this.displaySkyBox)
             this.skybox.display();
-        this.cylinder.display();
-        this.skybox.display();
+        //this.cylinder.display();
+        this.house.display();
 
         // ---- END Primitive drawing section
     }
