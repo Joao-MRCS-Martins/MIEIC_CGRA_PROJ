@@ -18,6 +18,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+        this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -70,7 +71,7 @@ class MyScene extends CGFscene {
         if (this.displaySkyBox)
             this.skybox.display();
         //this.cylinder.display();
-        this.house.display();
+       // this.house.display();
 
         // ---- END Primitive drawing section
     }
