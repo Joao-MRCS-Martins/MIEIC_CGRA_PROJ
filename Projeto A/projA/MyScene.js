@@ -25,8 +25,11 @@ class MyScene extends CGFscene {
         //this.prism = new MyPrism(this,8,1);
         this.skybox = new MyCubeMap(this,2);
         this.house = new MyHouse(this);
-        this.tree = new MyTree(this,3,2,3,3,0,0);
-
+        this.tree = new MyTree(this,2,1,3,2,0,0);
+        this.tree_group = new MyTreeGroupPatch(this,this.tree);
+        this.tree_row = new MyTreeRowPatch(this,this.tree);
+        this.cube_quad = new MyUnitCubeQuad(this);
+        this.hill = new MyVoxelHill(this,this.cube_quad,5);
         //Objects connected to MyInterface
         this.displaySkyBox = false;
         this.prism = true;
@@ -70,10 +73,36 @@ class MyScene extends CGFscene {
         //this.prism.display();
         if (this.displaySkyBox)
             this.skybox.display();
-       //this.cylinder.display();
-        this.tree.display();
-       // this.house.display();
 
+        //house display
+        this.pushMatrix();
+        this.translate(10,.5,0);
+        this.scale(4,4,4);
+        this.house.display();
+        this.popMatrix();
+        //trees display
+        this.pushMatrix();
+        this.translate (-10,0,-10);
+        this.tree_group.display();
+        this.translate(40,0,10);
+        this.tree_row.display();
+        this.translate(-5,0,20);
+        this.tree_group.display();
+        this.translate(-30,0,20);
+        this.tree_row.display();
+        this.popMatrix();
+        //hills display
+        this.pushMatrix();
+        this.translate(-20,0,10);
+        this.hill.updateComplexity(4);
+        this.hill.display();
+        this.hill.updateComplexity(6);
+        this.translate(10,0,10);
+        this.hill.display();
+        this.hill.updateComplexity(3);
+        this.translate(10,0,10);
+        this.hill.display();
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }
