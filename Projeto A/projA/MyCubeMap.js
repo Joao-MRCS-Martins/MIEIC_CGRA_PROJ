@@ -20,7 +20,7 @@ class MyCubeMap extends CGFobject {
     }
 
     display() {
-   // this.topTex.apply();
+    this.topTex.apply();
     this.scene.pushMatrix();
     this.scene.scale(this.scalefactor,this.scalefactor,this.scalefactor);
     this.scene.scale(-1,-1,-1);
