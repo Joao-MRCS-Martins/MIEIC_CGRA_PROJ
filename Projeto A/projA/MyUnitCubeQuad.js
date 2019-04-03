@@ -10,8 +10,6 @@ class MyUnitCubeQuad extends CGFobject {
         this.left = new MyQuad(scene);
         this.right = new MyQuad(scene);
 
-        
-
     }
 
     display() {

@@ -3,16 +3,16 @@
 * @constructor
 */
 class MyCylinder extends CGFobject {
-    constructor(scene, slices, stacks) {
+    constructor(scene, slices) {
         super(scene);
         this.slices = slices;
-        this.stacks = stacks;
         this.initBuffers();
     }
     initBuffers() {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
 
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
@@ -30,6 +30,14 @@ class MyCylinder extends CGFobject {
             this.vertices.push(caa, 0, saa);
             this.vertices.push(caa,1,saa);            
             this.vertices.push(ca,1,sa);
+            
+
+            this.texCoords.push(
+                i*1/this.slices, 0,
+                (i+1)*1/this.slices,0,
+                i*1/this.slices, 1,
+                (i+1)*1/this.slices, 1
+            );
             
             // triangle normal computed by cross product of two edges
             
@@ -59,13 +67,5 @@ class MyCylinder extends CGFobject {
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-    }
-    
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
-
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
     }
 }

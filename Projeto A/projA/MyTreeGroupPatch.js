@@ -7,14 +7,14 @@ class MyTreeGroupPatch extends CGFobject {
         super(scene);
         this.tree = tree;
         this.initBuffers();
-        this.rand_pos = [Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius,
-                         Math.random() * 2 + 2*this.tree.treeTopRadius ];
+        this.rand_pos = [Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius,
+                         Math.random() * 2 + 2.5*this.tree.treeTopRadius ];
     }
     initBuffers() {
         this.tree.initBuffers();

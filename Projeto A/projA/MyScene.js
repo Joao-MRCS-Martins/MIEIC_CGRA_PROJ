@@ -22,7 +22,6 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        //this.prism = new MyPrism(this,8,1);
         this.skybox = new MyCubeMap(this,2);
         this.house = new MyHouse(this);
         this.tree = new MyTree(this,2,1,3,2,0,0);
@@ -30,20 +29,28 @@ class MyScene extends CGFscene {
         this.tree_row = new MyTreeRowPatch(this,this.tree);
         this.cube_quad = new MyUnitCubeQuad(this);
         this.hill = new MyVoxelHill(this,this.cube_quad,5);
+        this.grass = new MyQuad(this);
         //Objects connected to MyInterface
         this.displaySkyBox = false;
         this.prism = true;
-
-
+        
+        //grass texture
+        this.grass_tex = new CGFappearance(this);
+        this.grass_tex.loadTexture("./images/Textures/grass_texture.jpg");
+        this.grass_tex.setAmbient(0.8,0.8,0.8,1);
+        //this.grass_tex.setDiffuse(0.8,0.8,0.8,1);
+        //this.grass_tex.setSpecular(0.2,0.2,0.2,1);
+        this.grass_tex.setShininess(100);
+        
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setPosition(15, 30, 15, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 50, 150), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -61,22 +68,30 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
+        
         this.lights[0].update();
         // Draw axis
         this.axis.display();
-
+        
         //Apply default appearance
         this.setDefaultAppearance();
-
+        
         // ---- BEGIN Primitive drawing section
-        //this.prism.display();
+        
+        this.pushMatrix();
+        this.rotate(-Math.PI/2,1,0,0);
+        this.scale(500,50,0);
+        this.grass_tex.setTextureWrap("REPEAT","REPEAT");
+        this.grass_tex.apply();
+        this.grass.display();
+        this.popMatrix();
+
         if (this.displaySkyBox)
             this.skybox.display();
 
         //house display
         this.pushMatrix();
-        this.translate(10,.5,0);
+        this.translate(10,2,0);
         this.scale(4,4,4);
         this.house.display();
         this.popMatrix();

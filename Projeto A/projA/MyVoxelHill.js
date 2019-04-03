@@ -7,9 +7,17 @@ class MyVoxelHill extends CGFobject {
         super(scene);
         this.cube = cube;
         this.level = level;
+
+        //rock material
+        this.rockAppearance = new CGFappearance(this.scene);
+        this.rockAppearance.loadTexture("./images/Textures/rock_texture.jpg");
+        this.rockAppearance.setDiffuse(0.8,0.8,0.8,1);
+        this.rockAppearance.setSpecular(0.2,0.2,0.2,1);
+        this.rockAppearance.setShininess(100);
     }
     
     display() {
+        this.rockAppearance.apply();
         this.scene.pushMatrix();
         var tmp_lvl = this.level;
         while(tmp_lvl > 0) {
