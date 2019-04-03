@@ -40,12 +40,14 @@ class MyTree extends CGFobject {
         this.scene.pushMatrix();
         this.scene.scale(this.trunkRadius,this.trunkHeight,this.trunkRadius);
         this.woodAppearance.apply();
+        //this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.trunk.display();
         this.scene.popMatrix();
         this.scene.pushMatrix();
         this.scene.translate(0,this.trunkHeight,0);
         this.scene.scale(this.treeTopRadius,this.treeTopHeight,this.treeTopRadius);
         this.leavesAppearance.apply();
+        //this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST); 
         this.treeTop.display();
         this.scene.popMatrix();
     }

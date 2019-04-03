@@ -22,7 +22,7 @@ class MyScene extends CGFscene {
         
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.skybox = new MyCubeMap(this,2);
+        this.skybox = new MyCubeMap(this,300);
         this.house = new MyHouse(this);
         this.tree = new MyTree(this,2,1,3,2,0,0);
         this.tree_group = new MyTreeGroupPatch(this,this.tree);
@@ -82,6 +82,8 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
         
         // ---- BEGIN Primitive drawing section
+        if (this.displaySkyBox)
+            this.skybox.display();
         
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
@@ -90,9 +92,7 @@ class MyScene extends CGFscene {
         this.grass_tex.apply();
         this.grass.display();
         this.popMatrix();
-
-        if (this.displaySkyBox)
-            this.skybox.display();
+        
 
         //house display
         this.pushMatrix();
@@ -123,6 +123,9 @@ class MyScene extends CGFscene {
         this.translate(10,0,10);
         this.hill.display();
         this.popMatrix();
+
+
+        
         // ---- END Primitive drawing section
     }
     updateEnableTex() {
