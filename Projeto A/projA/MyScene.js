@@ -19,7 +19,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
-
+        
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this,2);
@@ -32,7 +32,8 @@ class MyScene extends CGFscene {
         this.grass = new MyQuad(this);
         //Objects connected to MyInterface
         this.displaySkyBox = false;
-        this.prism = true;
+        this.enableTex = true;
+        
         
         //grass texture
         this.grass_tex = new CGFappearance(this);
@@ -59,6 +60,10 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     display() {
+
+        this.updateEnableTex();
+
+
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -80,7 +85,7 @@ class MyScene extends CGFscene {
         
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
-        this.scale(500,50,0);
+        this.scale(500,500,0);
         this.grass_tex.setTextureWrap("REPEAT","REPEAT");
         this.grass_tex.apply();
         this.grass.display();
@@ -119,5 +124,8 @@ class MyScene extends CGFscene {
         this.hill.display();
         this.popMatrix();
         // ---- END Primitive drawing section
+    }
+    updateEnableTex() {
+        this.enableTextures(this.enableTex);
     }
 }

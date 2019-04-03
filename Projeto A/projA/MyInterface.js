@@ -17,6 +17,7 @@ class MyInterface extends CGFinterface {
         var obj = this;
 
         this.gui.add(this.scene,'displaySkyBox').name('Toggle Skybox');
+        this.gui.add(this.scene,'enableTex').name('Enable Textures');
 
         return true;
     }
