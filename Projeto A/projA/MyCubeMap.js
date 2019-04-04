@@ -11,7 +11,7 @@ class MyCubeMap extends CGFobject {
         this.topTex.setSpecular(0, 0, 0, 0);
         this.topTex.setShininess(10.0);
         this.topTex.loadTexture('images/teste.jpg');
-        this.topTex.setTextureWrap('REPEAT', 'REPEAT');
+        this.topTex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     }
 

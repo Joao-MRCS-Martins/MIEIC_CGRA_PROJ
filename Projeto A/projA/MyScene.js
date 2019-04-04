@@ -29,7 +29,12 @@ class MyScene extends CGFscene {
         this.tree_row = new MyTreeRowPatch(this,this.tree);
         this.cube_quad = new MyUnitCubeQuad(this);
         this.hill = new MyVoxelHill(this,this.cube_quad,5);
-        this.grass = new MyQuad(this);
+        this.grass_coords = [   0,50,
+                                50,50,
+                                0,0,
+                                50,0
+        ];
+        this.grass = new MyQuad(this,this.grass_coords);
         //Objects connected to MyInterface
         this.displaySkyBox = false;
         this.enableTex = true;
@@ -39,9 +44,10 @@ class MyScene extends CGFscene {
         this.grass_tex = new CGFappearance(this);
         this.grass_tex.loadTexture("./images/Textures/grass_texture.jpg");
         this.grass_tex.setAmbient(0.8,0.8,0.8,1);
-        //this.grass_tex.setDiffuse(0.8,0.8,0.8,1);
-        //this.grass_tex.setSpecular(0.2,0.2,0.2,1);
+        this.grass_tex.setDiffuse(0.8,0.8,0.8,1);
+        this.grass_tex.setSpecular(0.2,0.2,0.2,1);
         this.grass_tex.setShininess(100);
+        this.grass_tex.setTextureWrap('REPEAT','REPEAT');
         
     }
     initLights() {
@@ -88,7 +94,6 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
         this.scale(500,500,0);
-        this.grass_tex.setTextureWrap("REPEAT","REPEAT");
         this.grass_tex.apply();
         this.grass.display();
         this.popMatrix();
