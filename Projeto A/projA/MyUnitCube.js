@@ -35,18 +35,23 @@ class MyUnitCube extends CGFobject {
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
-			0, 3, 2,	//face lateral esquerda
-			0, 1, 3,
-			2, 3, 7,	//face superior	
-			2, 7, 6, 
-			0, 2, 6, 	//face anterior
-			0, 6, 4,
-			4, 7, 5, 	//face lateral direita
-			4, 6, 7,
-			1, 7, 3, 	//face posterior
-			1, 5, 7,
-			0, 5, 1,	//face inferior
-			0, 4, 5
+			2, 3, 0,	//face lateral esquerda
+			3, 1, 0,
+
+			7, 3, 2,	//face superior	
+			6, 7, 2, 
+
+			6, 2, 0, 	//face anterior
+			4, 6, 0,
+
+			5, 7, 4, 	//face lateral direita
+			7, 6, 4,
+
+			3, 7, 1, 	//face posterior
+			7, 5, 1,
+
+			1, 5, 0,	//face inferior
+			5, 4, 0,
 		];
 
 		this.normals = [
@@ -84,9 +89,9 @@ class MyUnitCube extends CGFobject {
 		];
 
 		this.texCoords = [
-			0, 1,
-			1, 1,
-			0, 0,
+			2/3,0.25,
+			1, 0.25,
+			1/3, 0.25,
 			1, 0,
 
 			0, 1,
@@ -94,10 +99,6 @@ class MyUnitCube extends CGFobject {
 			0, 0,
 			1, 0,
 
-			0, 1,
-			1, 1,
-			0, 0,
-			1, 0,
 		]
 
 		this.primitiveType = this.scene.gl.TRIANGLES;

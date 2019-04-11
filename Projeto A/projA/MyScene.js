@@ -38,7 +38,8 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displaySkyBox = false;
         this.enableTex = true;
-        
+        this.day = true;
+        this.debug_skybox = false;
         
         //grass texture
         this.grass_tex = new CGFappearance(this);
@@ -68,7 +69,7 @@ class MyScene extends CGFscene {
     display() {
 
         this.updateEnableTex();
-
+        this.skybox.toggleDay(this.day);
 
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -91,6 +92,7 @@ class MyScene extends CGFscene {
         if (this.displaySkyBox)
             this.skybox.display();
         
+            if(!this.debug_skybox){
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
         this.scale(500,500,0);
@@ -128,7 +130,7 @@ class MyScene extends CGFscene {
         this.translate(10,0,10);
         this.hill.display();
         this.popMatrix();
-
+            }
 
         
         // ---- END Primitive drawing section
