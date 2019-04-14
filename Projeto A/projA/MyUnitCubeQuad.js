@@ -1,15 +1,17 @@
 class MyUnitCubeQuad extends CGFobject {
-    constructor(scene) {
+    constructor(scene,coords) {
         super(scene);
-
         this.scene = scene;
-        this.front = new MyQuad(scene);
-        this.back = new MyQuad(scene);
-        this.bottom = new MyQuad(scene);
-        this.top = new MyQuad(scene);
         this.left = new MyQuad(scene);
+        this.top = new MyQuad(scene);
+        this.front = new MyQuad(scene);
+        this.bottom = new MyQuad(scene);
         this.right = new MyQuad(scene);
-
+        this.back = new MyQuad(scene);
+        
+        if(coords != undefined) {
+            this.updateTexCoords(coords);
+        }
     }
 
     display() {
@@ -54,11 +56,16 @@ class MyUnitCubeQuad extends CGFobject {
         this.scene.rotate(Math.PI/2,1,0,0);
         this.bottom.display();
         this.scene.popMatrix();
-        
-        
-
-
     }
+
+    updateTexCoords(coords) {
+		this.left.updateTexCoords(coords.slice(0,8));
+        this.top.updateTexCoords(coords.slice(8,16));
+        this.front.updateTexCoords(coords.slice(16, 24));
+        this.bottom.updateTexCoords(coords.slice(24,32));
+        this.right.updateTexCoords(coords.slice(32,40));
+        this.back.updateTexCoords(coords.slice(40,48));
+	}
 
 
 

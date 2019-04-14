@@ -15,10 +15,16 @@ class MyInterface extends CGFinterface {
         this.gui = new dat.GUI();
 
         var obj = this;
-
+        
+        //display SkyBox checkbox
         this.gui.add(this.scene,'displaySkyBox').name('Toggle Skybox');
+        //enable Textures checkbox
         this.gui.add(this.scene,'enableTex').name('Enable Textures');
-
+        //enable PorchLight
+        this.gui.add(this.scene,'porchLightOn').name('Turn Porch Light On');
+        //Light mode (Day or Night) dropdown
+        this.gui.add(this.scene, 'selectedMode', this.scene.lightModeID).name('Light Mode').onChange(this.scene.updateLights.bind(this.scene));
+        
         return true;
     }
 }
