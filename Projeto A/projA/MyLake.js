@@ -11,8 +11,8 @@ class MyLake extends CGFobject {
         //water material
         this.waterTex = new CGFappearance(this.scene);
         this.waterTex.loadTexture("./images/Textures/water_texture.jpg");
-        this.waterTex.setDiffuse(0.8,0.8,0.8,1);
-        this.waterTex.setSpecular(1.0,1.0,1.0,1);
+        this.waterTex.setDiffuse(0.8,0.8,0.8,0.1);
+        this.waterTex.setSpecular(1.0,1.0,1.0,0.1);
         this.waterTex.setShininess(100);
         this.initBuffers();
     }

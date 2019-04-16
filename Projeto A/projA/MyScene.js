@@ -37,27 +37,49 @@ class MyScene extends CGFscene {
         this.grass = new MyQuad(this,this.grass_coords);
         this.lake = new MyLake(this,2);
         this.circle = new MyCircle(this,10);
+        this.porchLight = new MyPorchLight(this);
+
        //Objects connected to MyInterface
         this.displaySkyBox = false;
         this.enableTex = true;
         this.day = true;
         this.debug_skybox = false;
+        this.lightMode = [ this.lights[0],this.lights[1]];
+        this.selectedMode = 0;
+        this.lightModeID = {'Day':0,'Night':1};
+        this.porchLightOn = true;
         
         //grass texture
         this.grass_tex = new CGFappearance(this);
         this.grass_tex.loadTexture("./images/Textures/grass_texture.jpg");
         this.grass_tex.setAmbient(0.8,0.8,0.8,1);
         this.grass_tex.setDiffuse(0.8,0.8,0.8,1);
-        this.grass_tex.setSpecular(0.2,0.2,0.2,1);
+        this.grass_tex.setSpecular(0.6,0.6,0.6,1);
         this.grass_tex.setShininess(100);
         this.grass_tex.setTextureWrap('REPEAT','REPEAT');
         
     }
     initLights() {
-        this.lights[0].setPosition(15, 30, 15, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].enable();
+        this.setGlobalAmbientLight(0.8, 0.8, 0.8, 1.0);
+
+        
+        this.lights[0].setPosition(2.0, 50.0, 2.0, 1.0);
+        this.lights[0].setAmbient(0.2,0.2,0.2,1.0);
+        this.lights[0].setDiffuse(1.0, 0.8, 0.8, 1.0);
+        this.lights[0].setSpecular(1.0, 0.8, 0.8, 1.0);
+        this.lights[0].setLinearAttenuation(0.001);
+        this.lights[0].disable();
+        this.lights[0].setVisible(true);
         this.lights[0].update();
+        
+        this.lights[1].setPosition(2.0, 50.0, 2.0, 1.0);
+        this.lights[1].setAmbient(0,0,0.3,1.0);
+        this.lights[1].setDiffuse(0.8, 0.8, 1.0, 1.0);
+        this.lights[1].setSpecular(0.8,0.8, 1, 1.0);
+        this.lights[1].setLinearAttenuation(0.01);
+        this.lights[1].disable();
+        this.lights[1].setVisible(true);
+        this.lights[1].update();
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(20, 0, 20));
@@ -68,10 +90,30 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+    updateEnableTex() {
+        this.enableTextures(this.enableTex);
+    }     
+    updateLights() {
+        this.lights[0].update();
+        this.lights[1].update();
+        if(this.selectedMode == 0) {
+            this.setGlobalAmbientLight(0.8, 0.8, 0.8, 1.0);
+            this.lights[1].disable();
+            this.lights[0].enable();
+        }
+        else {
+            this.setGlobalAmbientLight(0.2, 0.2, 0.2, 1.0);
+            this.lights[0].disable();
+            this.lights[1].enable();
+        }
+        this.porchLight.switch(this.porchLightOn);
+    }
     display() {
 
         this.updateEnableTex();
         this.skybox.toggleDay(this.day);
+        this.updateLights();
+
 
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -83,7 +125,6 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
         
-        this.lights[0].update();
         // Draw axis
         this.axis.display();
         
@@ -91,8 +132,12 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
         
         // ---- BEGIN Primitive drawing section
+
+        
         if (this.displaySkyBox)
-            this.skybox.display();
+        this.skybox.display();
+        
+        if(!this.debug_skybox){
        
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
@@ -107,7 +152,9 @@ class MyScene extends CGFscene {
         this.translate(10,2,0);
         this.scale(4,4,4);
         this.house.display();
+        this.porchLight.display();
         this.popMatrix();
+
         //trees display
         this.pushMatrix();
         this.translate (-10,0,-10);
@@ -119,6 +166,7 @@ class MyScene extends CGFscene {
         this.translate(-30,0,20);
         this.tree_row.display();
         this.popMatrix();
+
         //hills display
         this.pushMatrix();
         this.translate(-20,0,10);
@@ -132,15 +180,12 @@ class MyScene extends CGFscene {
         this.hill.display();
         this.popMatrix();
         
+        //lake display
         this.pushMatrix();
         this.translate(15,0.01,20);
         this.lake.display();
-        this.popMatrix();
-        
-       
+        this.popMatrix();       
         // ---- END Primitive drawing section
     }
-    updateEnableTex() {
-        this.enableTextures(this.enableTex);
-    }
+}
 }
