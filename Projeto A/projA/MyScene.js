@@ -35,7 +35,9 @@ class MyScene extends CGFscene {
                                 50,0
         ];
         this.grass = new MyQuad(this,this.grass_coords);
-        //Objects connected to MyInterface
+        this.lake = new MyLake(this,2);
+        this.circle = new MyCircle(this,10);
+       //Objects connected to MyInterface
         this.displaySkyBox = false;
         this.enableTex = true;
         this.day = true;
@@ -58,7 +60,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 50, 150), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(20, 0, 20));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -91,8 +93,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         if (this.displaySkyBox)
             this.skybox.display();
-        
-            if(!this.debug_skybox){
+       
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
         this.scale(500,500,0);
@@ -100,7 +101,7 @@ class MyScene extends CGFscene {
         this.grass.display();
         this.popMatrix();
         
-
+        
         //house display
         this.pushMatrix();
         this.translate(10,2,0);
@@ -130,9 +131,13 @@ class MyScene extends CGFscene {
         this.translate(10,0,10);
         this.hill.display();
         this.popMatrix();
-            }
-
         
+        this.pushMatrix();
+        this.translate(15,0.01,20);
+        this.lake.display();
+        this.popMatrix();
+        
+       
         // ---- END Primitive drawing section
     }
     updateEnableTex() {
