@@ -21,7 +21,7 @@ class MyInterface extends CGFinterface {
         //enable Textures checkbox
         this.gui.add(this.scene,'enableTex').name('Enable Textures');
         //this.gui.add(this.scene,'day').name('Toggle Day');
-        this.gui.add(this.scene,'debug_skybox').name('debug skybox');
+        //this.gui.add(this.scene,'debug_skybox').name('debug skybox');
 
         //enable PorchLight
         this.gui.add(this.scene,'porchLightOn').name('Turn Porch Light On');

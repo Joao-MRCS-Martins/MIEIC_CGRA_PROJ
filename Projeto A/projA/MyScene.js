@@ -139,7 +139,7 @@ class MyScene extends CGFscene {
         if (this.displaySkyBox)
         this.skybox.display();
         
-        if(!this.debug_skybox){
+        
        
         this.pushMatrix();
         this.rotate(-Math.PI/2,1,0,0);
@@ -189,5 +189,4 @@ class MyScene extends CGFscene {
         this.popMatrix();       
         // ---- END Primitive drawing section
     }
-}
 }
