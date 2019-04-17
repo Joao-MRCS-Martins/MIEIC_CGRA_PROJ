@@ -40,7 +40,7 @@ class MyScene extends CGFscene {
         this.porchLight = new MyPorchLight(this);
 
        //Objects connected to MyInterface
-        this.displaySkyBox = false;
+        this.displaySkyBox = true;
         this.enableTex = true;
         this.day = true;
         this.debug_skybox = false;
@@ -54,7 +54,7 @@ class MyScene extends CGFscene {
         this.grass_tex.loadTexture("./images/Textures/grass_texture.jpg");
         this.grass_tex.setAmbient(0.8,0.8,0.8,1);
         this.grass_tex.setDiffuse(0.8,0.8,0.8,1);
-        this.grass_tex.setSpecular(0.6,0.6,0.6,1);
+        this.grass_tex.setSpecular(0.1,0.1,0.1,1);
         this.grass_tex.setShininess(100);
         this.grass_tex.setTextureWrap('REPEAT','REPEAT');
         
@@ -73,9 +73,9 @@ class MyScene extends CGFscene {
         this.lights[0].update();
         
         this.lights[1].setPosition(2.0, 50.0, 2.0, 1.0);
-        this.lights[1].setAmbient(0,0,0.3,1.0);
-        this.lights[1].setDiffuse(0.8, 0.8, 1.0, 1.0);
-        this.lights[1].setSpecular(0.8,0.8, 1, 1.0);
+        this.lights[1].setAmbient(0,0,0.4,1.0);
+        this.lights[1].setDiffuse(0.9, 0.9, 1.0, 1.0);
+        this.lights[1].setSpecular(0.9,0.9, 1, 1.0);
         this.lights[1].setLinearAttenuation(0.01);
         this.lights[1].disable();
         this.lights[1].setVisible(true);

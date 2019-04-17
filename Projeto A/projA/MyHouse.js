@@ -18,7 +18,7 @@ class MyHouse extends CGFobject{
         this.house_map = new CGFappearance(this.scene);
         this.house_map.loadTexture("./images/Textures/housemap.jpg");
         this.house_map.setDiffuse(0.8,0.8,0.8,1);
-        this.house_map.setSpecular(0.2,0.2,0.2,1);
+        this.house_map.setSpecular(0.1,0.1,0.1,1);
         this.house_map.setShininess(100);
         
         
@@ -26,7 +26,7 @@ class MyHouse extends CGFobject{
         this.roof_tex = new CGFappearance(this.scene);
         this.roof_tex.loadTexture("./images/Textures/rooftop_texture.jpg");
         this.roof_tex.setDiffuse(0.8,0.8,0.8,1);
-        this.roof_tex.setSpecular(0.2,0.2,0.2,1);
+        this.roof_tex.setSpecular(0.05,0.05,0.05,1);
         this.roof_tex.setShininess(100);
 
         //columns texture
