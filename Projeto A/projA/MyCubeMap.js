@@ -19,7 +19,7 @@ class MyCubeMap extends CGFobject {
         this.nightTex.setDiffuse(0, 0, 0, 0);
         this.nightTex.setSpecular(0, 0, 0, 0);
         this.nightTex.setShininess(10.0);
-        this.nightTex.loadTexture('images/teste.jpg');
+        this.nightTex.loadTexture('images/Textures/night.png');
         this.nightTex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         
 

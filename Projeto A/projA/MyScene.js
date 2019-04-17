@@ -100,11 +100,13 @@ class MyScene extends CGFscene {
             this.setGlobalAmbientLight(0.8, 0.8, 0.8, 1.0);
             this.lights[1].disable();
             this.lights[0].enable();
+            this.day =true;
         }
         else {
             this.setGlobalAmbientLight(0.2, 0.2, 0.2, 1.0);
             this.lights[0].disable();
             this.lights[1].enable();
+            this.day = false;
         }
         this.porchLight.switch(this.porchLightOn);
     }
