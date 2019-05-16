@@ -42,8 +42,40 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    update(t){
+    checkKeys()  {
+        var text="Keys pressed: ";
+        var keysPressed=false;
+        
+        if (this.gui.isKeyPressed("KeyW")) {
+            text+=" Accelerate ";
+            keysPressed=true;
+        }
+        
+        if (this.gui.isKeyPressed("KeyS")) {
+            text+="  Break ";
+            keysPressed=true;
+        }
 
+        if(this.gui.isKeyPressed("KeyA")) {
+            text+= " Turn_Left ";
+            keysPressed = true;
+        }
+
+        if(this.gui.isKeyPressed("KeyD")) {
+            text+= " Turn_Right ";
+            keysPressed = true;
+        }
+
+        if(this.gui.isKeyPressed("KeyR")) {
+            text+= " Reset ";
+            keysPressed = true;
+        }
+        
+        if (keysPressed)
+            console.log(text);
+    }
+    update(t){
+        this.checkKeys();
     }
 
     display() {
