@@ -12,7 +12,7 @@ class MyScene extends CGFscene {
         this.initLights();
 
         //Background color
-        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        this.gl.clearColor(0.5, 0.5, 0.5, 1.0);
 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
@@ -24,6 +24,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
+        this.bird = new MyBird(this);
 
         //Objects connected to MyInterface
     }
@@ -76,6 +77,7 @@ class MyScene extends CGFscene {
     }
     update(t){
         this.checkKeys();
+        this.bird.update(t);
     }
 
     display() {
@@ -99,7 +101,10 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-0.5*Math.PI, 1, 0, 0);
         this.scale(60, 60, 1);
-        this.plane.display();
+        //this.plane.display();
+        this.popMatrix();
+        this.pushMatrix();
+        this.bird.display();
         this.popMatrix();
         // ---- END Primitive drawing section
     }
