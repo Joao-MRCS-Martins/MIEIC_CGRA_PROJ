@@ -106,6 +106,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         //this.pushMatrix();
         this.setActiveShader(this.terrainShader);
+        //this.plane.terrainMap.bind(1);
         this.plane.display();
        // this.popMatrix();
         this.setActiveShader(this.defaultShader);

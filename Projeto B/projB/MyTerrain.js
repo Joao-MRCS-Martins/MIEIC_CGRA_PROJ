@@ -1,3 +1,5 @@
+//move shaders here
+
 class MyTerrain extends CGFobject {
     constructor(scene, scalefactor){
         super(scene);
@@ -14,14 +16,14 @@ class MyTerrain extends CGFobject {
         //this.terrain.loadTexture("images/terrain.jpg");
         this.terrain.setTexture(this.terrainTex);
         this.terrain.setTextureWrap('REPEAT', 'REPEAT');
-        this.terrainMap.bind(1);
-        this.altimetry.bind(2);
     }
     display(){
+        this.terrainMap.bind(1);
+        this.altimetry.bind(2);
         this.terrain.apply();
         this.scene.pushMatrix();
         this.scene.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scene.scale(60, 60, 1);
+        this.scene.scale(60, 60, 10);
         this.plane.display();
         this.scene.popMatrix();
        // this.appearance.apply();
