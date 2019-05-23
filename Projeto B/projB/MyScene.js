@@ -2,6 +2,8 @@
 * MyScene
 * @constructor
 */
+
+const FR = 60;
 class MyScene extends CGFscene {
     constructor() {
         super();
@@ -20,16 +22,18 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
-        this.setUpdatePeriod(50);
+        this.setUpdatePeriod(1000/FR);
         
-        this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
         this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
+        this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
         this.bird = new MyBird(this);
         this.plane = new MyTerrain(this,60);
         
+        this.bird_speed =0;
+        this.bird_angle=0;
         //Objects connected to MyInterface
     
     }
@@ -56,32 +60,37 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyW")) {
             text+=" Accelerate ";
             keysPressed=true;
+            this.bird.accelerate(1);
         }
         
         if (this.gui.isKeyPressed("KeyS")) {
             text+="  Break ";
             keysPressed=true;
+            this.bird.accelerate(-1);
         }
 
         if(this.gui.isKeyPressed("KeyA")) {
             text+= " Turn_Left ";
             keysPressed = true;
+            this.bird.turn(Math.PI/8);
         }
 
         if(this.gui.isKeyPressed("KeyD")) {
             text+= " Turn_Right ";
             keysPressed = true;
-        }
+            this.bird.turn(-Math.PI/8);        }
 
         if(this.gui.isKeyPressed("KeyR")) {
             text+= " Reset ";
             keysPressed = true;
+            this.bird.reset();
         }
         
         if (keysPressed)
             console.log(text);
     }
     update(t){
+
         this.checkKeys();
         this.bird.update(t);
     }
