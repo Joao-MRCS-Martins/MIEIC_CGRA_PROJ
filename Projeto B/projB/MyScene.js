@@ -10,25 +10,30 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
-
+       
+        
         //Background color
         this.gl.clearColor(0.5, 0.5, 0.5, 1.0);
-
+        
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
         this.setUpdatePeriod(50);
-
+        
+        this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
         this.bird = new MyBird(this);
         this.plane = new MyTerrain(this,60);
-
+        
         //Objects connected to MyInterface
+    
     }
+
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -99,13 +104,13 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
+        //this.pushMatrix();
+        this.setActiveShader(this.terrainShader);
+        this.plane.display();
+       // this.popMatrix();
+        this.setActiveShader(this.defaultShader);
         this.pushMatrix();
-        this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        //this.plane.display();
-        this.popMatrix();
-        this.pushMatrix();
-        this.bird.display();
+        //this.bird.display();
         this.popMatrix();
         // ---- END Primitive drawing section
 

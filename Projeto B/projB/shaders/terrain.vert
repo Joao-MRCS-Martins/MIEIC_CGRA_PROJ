@@ -10,16 +10,15 @@ varying vec2 vTextureCoord;
 uniform sampler2D uSampler2;
 
 uniform float normScale;
-uniform float timeFactor;
 
 void main() {
-	float directionalOffset = timeFactor * 0.01;
-	float stretchFactor = 0.5;
-
-    vec4 offset = texture2D(uSampler2, aTextureCoord*vec2(stretchFactor, stretchFactor)+vec2(directionalOffset*normScale, directionalOffset*normScale));
-
-
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.x, aVertexPosition.y, aVertexPosition.z+offset.z*0.1*normScale, 1.0);
+	vec3 offset=vec3(0.0,0.0,0.0);
+	
 	vTextureCoord = aTextureCoord;
+
+	if (texture2D(uSampler2, vec2(0.0,0.1)+vTextureCoord).b > 0.5)
+		offset=aVertexNormal*normScale*0.1;
+
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 }
 
