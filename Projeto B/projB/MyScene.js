@@ -24,8 +24,8 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FR);
         
-        this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
         this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
@@ -114,9 +114,10 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         //this.pushMatrix();
-        this.setActiveShader(this.terrainShader);
+        //this.setActiveShader(this.terrainShader);
         //this.plane.terrainMap.bind(1);
-        this.plane.display();
+        //this.plane.display();
+        this.bird.display();
        // this.popMatrix();
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
