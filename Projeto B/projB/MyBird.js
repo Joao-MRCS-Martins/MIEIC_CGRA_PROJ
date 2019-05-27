@@ -25,6 +25,8 @@ class MyBird extends CGFobject {
         this.pos = [0,0,0];
         this.time = 0;
 
+        this.flapF = 1;
+
         //bird  color
         this.bird_color = new CGFappearance(this.scene);
         this.bird_color.setDiffuse(1,0.3,0.3,1);
@@ -54,6 +56,7 @@ class MyBird extends CGFobject {
     display() {
         this.bird_color.apply();
         this.scene.pushMatrix();
+        
         this.scene.translate(this.pos[0],this.pos[1],this.pos[2]);
         this.scene.rotate(this.oriented,0,1,0);
         this.scene.pushMatrix();
@@ -64,14 +67,14 @@ class MyBird extends CGFobject {
         
         this.scene.translate(-0.5,0,0);
         this.scene.pushMatrix();
-        this.scene.rotate(this.pos[1]*Math.PI/4,0,0,-1);
+        this.scene.rotate(this.pos[1]*Math.PI/4*this.flapF,0,0,-1);
         this.wings.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.scale(-1,1,1);
         this.scene.translate(-1,0,0);
-        this.scene.rotate(this.pos[1]*Math.PI/4,0,0,-1);
+        this.scene.rotate(this.pos[1]*Math.PI/4*this.flapF,0,0,-1);
         this.wings.display();
         this.scene.popMatrix();
 
@@ -98,18 +101,21 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
 
-    update(t) {
-        this.pos[0] += this.speed*(t-this.time)/10000 * Math.sin(this.oriented);
+    update(t,flapF) {
+        this.flapF = flapF;
+        this.pos[0] += (this.speed)*(t-this.time)/10000 * Math.sin(this.oriented);
         this.pos[1] = Math.sin(Math.PI*t/500);
-        this.pos[2] += this.speed*(t-this.time)/10000*Math.cos(this.oriented);
+        this.pos[2] += (this.speed)*(t-this.time)/10000*Math.cos(this.oriented);
         console.log("Time elapsed: ",t-this.time);
         console.log("pos0 ",this.pos[0]," pos1 ",this.pos[1]," pos2 ",this.pos[2]);
         this.time = t;
     }
 
     reset() {
-        this.oriented =0;
-        this.speed =0;
+        this.oriented = 0;
+        this.speed = 0;
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
         this.pos = [0,0,0];
     }
 }

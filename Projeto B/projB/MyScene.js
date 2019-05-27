@@ -23,6 +23,9 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FR);
+
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
         
         this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
         this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
@@ -60,28 +63,31 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyW")) {
             text+=" Accelerate ";
             keysPressed=true;
-            this.bird.accelerate(1);
+            this.bird.accelerate(this.speedFactor);
         }
         
         if (this.gui.isKeyPressed("KeyS")) {
             text+="  Break ";
             keysPressed=true;
-            this.bird.accelerate(-1);
+            this.bird.accelerate(-this.speedFactor);
         }
 
         if(this.gui.isKeyPressed("KeyA")) {
             text+= " Turn_Left ";
             keysPressed = true;
-            this.bird.turn(Math.PI/8);
+            this.bird.turn(Math.PI/8*this.speedFactor);
         }
 
         if(this.gui.isKeyPressed("KeyD")) {
             text+= " Turn_Right ";
             keysPressed = true;
-            this.bird.turn(-Math.PI/8);        }
+            this.bird.turn(-Math.PI/8*this.speedFactor);
+        }
 
         if(this.gui.isKeyPressed("KeyR")) {
             text+= " Reset ";
+            this.scaleFactor = 1;
+            this.speedFactor = 1;
             keysPressed = true;
             this.bird.reset();
         }
@@ -92,7 +98,7 @@ class MyScene extends CGFscene {
     update(t){
 
         this.checkKeys();
-        this.bird.update(t);
+        this.bird.update(t,this.speedFactor);
     }
 
     display() {
@@ -113,11 +119,13 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        //this.pushMatrix();
         //this.setActiveShader(this.terrainShader);
         //this.plane.terrainMap.bind(1);
         //this.plane.display();
+        this.pushMatrix();
+        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.bird.display();
+        this.popMatrix();
        // this.popMatrix();
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
