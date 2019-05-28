@@ -9,9 +9,6 @@ class MyWing extends CGFobject {
         this.upperW = new MyQuad(scene);
 
         this.lowerW = new MyTriangle(scene);
-
-        this.upTime = 0;
-
     }
     
     display() {
@@ -26,10 +23,5 @@ class MyWing extends CGFobject {
         this.lowerW.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
-    }
-
-    update(t) {
-        console.log(t);
-        this.upTime = Math.sin(Math.PI*t/500);
     }
 }

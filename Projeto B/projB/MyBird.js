@@ -7,25 +7,20 @@ class MyBird extends CGFobject {
         super(scene);
 
         this.head = new MyUnitCube(scene);
-
         this.body = new MyUnitCube(scene);
-
         this.eye = new MyUnitCube(scene);
-
         this.beak = new MyPyramid(scene,4);
-
         this.wings = new MyWing(scene);
-
-        this.upTime = 0;
+        this.branch;// = new MyTreeBranch(scene);
 
         this.oriented = 0;
-
         this.speed = 0;
-
-        this.pos = [0,0,0];
+        this.pos = [0,5,0];
         this.time = 0;
-
         this.flapF = 1;
+
+        this.dropping = false;
+        this.lifting = false;
 
         //bird  color
         this.bird_color = new CGFappearance(this.scene);
@@ -49,16 +44,18 @@ class MyBird extends CGFobject {
     turn(v) {
         this.oriented += v;
     }
-
     accelerate(v) {
         this.speed += v;
     }
     display() {
-        this.bird_color.apply();
-        this.scene.pushMatrix();
         
+        this.scene.pushMatrix();
+        //updating bird position
         this.scene.translate(this.pos[0],this.pos[1],this.pos[2]);
         this.scene.rotate(this.oriented,0,1,0);
+
+        //drawing bird
+        this.bird_color.apply();
         this.scene.pushMatrix();
         this.scene.scale(-1,-1,-1);
         this.body.display();
@@ -67,14 +64,14 @@ class MyBird extends CGFobject {
         
         this.scene.translate(-0.5,0,0);
         this.scene.pushMatrix();
-        this.scene.rotate(this.pos[1]*Math.PI/4*this.flapF,0,0,-1);
+        this.scene.rotate(Math.PI/4*this.flapF,0,0,-1);
         this.wings.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.scale(-1,1,1);
         this.scene.translate(-1,0,0);
-        this.scene.rotate(this.pos[1]*Math.PI/4*this.flapF,0,0,-1);
+        this.scene.rotate(Math.PI/4*this.flapF,0,0,-1);
         this.wings.display();
         this.scene.popMatrix();
 
@@ -97,25 +94,60 @@ class MyBird extends CGFobject {
         this.scene.translate(0,2,-2);
         this.beak_color.apply();
         this.beak.display();
+        if(this.branch) {
+            this.scene.pushMatrix();
+            this.scene.rotate(Math.PI/2,0,1,0);
+            this.scene.translate(0,1,-1);
+            this.branch.display();
+            this.scene.popMatrix();
+        }
         this.scene.popMatrix();
         this.scene.popMatrix();
     }
-
     update(t,flapF) {
-        this.flapF = flapF;
+        this.flapF = flapF*Math.sin(Math.PI*t/500);
         this.pos[0] += (this.speed)*(t-this.time)/10000 * Math.sin(this.oriented);
-        this.pos[1] = Math.sin(Math.PI*t/500);
+        if(this.dropping) {
+            this.pos[1] -= this.speed*(t-this.time)/10000;
+        }
+        else if (this.lifting) {
+            this.pos[1] += this.speed*(t-this.time)/10000;
+        }
+        else {
+            console.log("what");
+            this.pos[1] = 5 + Math.sin(Math.PI*t/500);
+        }
         this.pos[2] += (this.speed)*(t-this.time)/10000*Math.cos(this.oriented);
-        console.log("Time elapsed: ",t-this.time);
-        console.log("pos0 ",this.pos[0]," pos1 ",this.pos[1]," pos2 ",this.pos[2]);
         this.time = t;
     }
-
     reset() {
         this.oriented = 0;
         this.speed = 0;
         this.scaleFactor = 1;
         this.speedFactor = 1;
-        this.pos = [0,0,0];
+        this.pos = [0,5,0];
+        this.lifting = false;
+        this.dropping = false;
+    }
+    pickBranch(branches) {
+        if(!this.branch) {
+            for(var i = 0; i < branches.length; i++) {
+               if( Math.abs(branches[i].x -this.pos[0]) < 4 && Math.abs(branches[i].z -this.pos[2]) < 4) {
+                    this.branch = new MyTreeBranch(this.scene,0,0,0);
+                    branches.splice(i,1);
+                    break;
+                }
+            }
+        }
+        this.dropping = false;
+        this.lifting = true;
+    }
+    dropBranch(nest) {
+        if(Math.abs(nest.x -this.pos[0]) < 4 && Math.abs(nest.z -this.pos[2]) < 4) {
+            nest.drop_branches.push(new MyTreeBranch(this.scene,0,0,0));
+            this.branch = null;
+        }
+        this.dropping = false;
+        this.lifting = true;
     }
 }

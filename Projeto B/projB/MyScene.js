@@ -24,8 +24,6 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FR);
 
-        this.scaleFactor = 1;
-        this.speedFactor = 1;
         
         this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
         this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
@@ -35,6 +33,20 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this);
         this.plane = new MyTerrain(this,60);
         
+        this.branches_pos = [ Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8, //x, rotation on y, z
+                            Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
+                            Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
+                            Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8];
+                            
+        this.branches = [  new MyTreeBranch(this,this.branches_pos[0],this.branches_pos[1],this.branches_pos[2]),
+                           new MyTreeBranch(this,this.branches_pos[3],this.branches_pos[4],this.branches_pos[5]),
+                           new MyTreeBranch(this,this.branches_pos[6],this.branches_pos[7],this.branches_pos[8]),
+                           new MyTreeBranch(this,this.branches_pos[9],this.branches_pos[10],this.branches_pos[11])];
+
+        this.nest = new MyNest(this,0,5);
+                            
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
         this.bird_speed =0;
         this.bird_angle=0;
         //Objects connected to MyInterface
@@ -91,6 +103,11 @@ class MyScene extends CGFscene {
             keysPressed = true;
             this.bird.reset();
         }
+
+        if(this.gui.isKeyPressed("KeyP")) {
+            text += " Pick-up ";
+            this.bird.dropping = true;
+        }
         
         if (keysPressed)
             console.log(text);
@@ -98,7 +115,21 @@ class MyScene extends CGFscene {
     update(t){
 
         this.checkKeys();
+        this.updateBirdFlight(t);
+    }
+
+    updateBirdFlight(t) {
         this.bird.update(t,this.speedFactor);
+        if(this.bird.pos[1] <= 0) {
+            if(this.bird.branch) {
+                this.bird.dropBranch(this.nest);
+            }
+            else
+                this.bird.pickBranch(this.branches);
+        }
+        else if (this.bird.pos[1] >= 5) {
+            this.bird.lifting = false;
+        }
     }
 
     display() {
@@ -122,14 +153,27 @@ class MyScene extends CGFscene {
         //this.setActiveShader(this.terrainShader);
         //this.plane.terrainMap.bind(1);
         //this.plane.display();
+        
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+        //this.translate(0,5,0);
         this.bird.display();
         this.popMatrix();
-       // this.popMatrix();
+
+        this.pushMatrix();
+        this.nest.display();
+        this.popMatrix();
+
+        
+        for(var i =0; i < this.branches.length; i++) {
+            this.pushMatrix();
+            this.scale(0.5,0.5,0.5);
+            this.branches[i].display();
+            this.popMatrix();
+        }
+
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
-        //this.bird.display();
         this.popMatrix();
         // ---- END Primitive drawing section
 
