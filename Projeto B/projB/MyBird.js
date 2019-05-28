@@ -6,7 +6,7 @@ class MyBird extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.head = new MyUnitCube(scene);
+        this.head = new MyPyramid(scene,4);
         this.body = new MyUnitCube(scene);
         this.eye = new MyUnitCube(scene);
         this.beak = new MyPyramid(scene,4);
@@ -30,9 +30,9 @@ class MyBird extends CGFobject {
 
         //bird eye color
         this.eye_color = new CGFappearance(this.scene);
-        this.eye_color.setAmbient(1,1,1,1);
-        this.eye_color.setDiffuse(1,1,1,1);
-        this.eye_color.setSpecular(1,1,1,1);
+        this.eye_color.setAmbient(0,0.7,1,0.5);
+        this.eye_color.setDiffuse(0,0.7,1,0.5);
+        this.eye_color.setSpecular(0,0.7,1,0.5);
         this.eye_color.setShininess(100);
 
         //bird beak color
@@ -50,58 +50,66 @@ class MyBird extends CGFobject {
     display() {
         
         this.scene.pushMatrix();
-        //updating bird position
-        this.scene.translate(this.pos[0],this.pos[1],this.pos[2]);
-        this.scene.rotate(this.oriented,0,1,0);
+            //updating bird position
+            this.scene.translate(this.pos[0],this.pos[1],this.pos[2]);
+            this.scene.rotate(this.oriented,0,1,0);
 
-        //drawing bird
-        this.bird_color.apply();
-        this.scene.pushMatrix();
-        this.scene.scale(-1,-1,-1);
-        this.body.display();
-       
-        this.scene.pushMatrix();
+            //drawing bird
+            this.bird_color.apply();
         
-        this.scene.translate(-0.5,0,0);
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/4*this.flapF,0,0,-1);
-        this.wings.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.scale(-1,1,1);
-        this.scene.translate(-1,0,0);
-        this.scene.rotate(Math.PI/4*this.flapF,0,0,-1);
-        this.wings.display();
-        this.scene.popMatrix();
-
-        this.scene.popMatrix();
-       
-       
-        this.scene.translate(-1,0,0);
-        this.scene.translate(1,-0.9,-0.5);
-        this.head.display();
-        this.eye_color.apply();
-        this.scene.scale(0.2,0.4,0.4);
-        this.scene.translate(2.5,0,-0.5);
-        this.eye.display();
-        this.scene.translate(-5,0,0);
-        this.eye.display();
-        this.scene.popMatrix();
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.4,0.4,0.4);
-        this.scene.translate(0,2,-2);
-        this.beak_color.apply();
-        this.beak.display();
-        if(this.branch) {
             this.scene.pushMatrix();
-            this.scene.rotate(Math.PI/2,0,1,0);
-            this.scene.translate(0,1,-1);
-            this.branch.display();
+                this.scene.scale(-1,-1,-1);
+                this.body.display();
+       
+                this.scene.pushMatrix();
+                    this.scene.translate(-0.5,0,0);
+        
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI/4*this.flapF,0,0,-1);
+                        this.wings.display();
+                    this.scene.popMatrix();
+
+                    this.scene.scale(-1,1,1);
+                    this.scene.translate(-1,0,0);
+                    this.scene.rotate(Math.PI/4*this.flapF,0,0,-1);
+                    this.wings.display();
+
+                this.scene.popMatrix();
+       
+       
+                this.scene.translate(0,-0.9,-0.5);
+            
+                this.scene.pushMatrix();
+                    this.scene.scale(0.8,0.8,0.8);
+                    this.scene.translate(0,0,0.4);
+                    this.scene.rotate(-Math.PI/2,1,0,0);
+                    this.head.display();
+                this.scene.popMatrix();
+            
+                this.eye_color.apply();
+                this.scene.scale(0.2,0.2,0.2);
+                this.scene.translate(1,-1.8,0.8);
+                this.eye.display();
+                this.scene.translate(-2,0,0);
+                this.eye.display();
             this.scene.popMatrix();
-        }
-        this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.beak_color.apply();
+                this.scene.rotate(Math.PI/2,1,0,0);
+                this.scene.scale(0.2,0.2,0.2);
+                this.scene.translate(0,4.1,-4.4);
+                this.beak.display();
+        
+                if(this.branch) {
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI/2,0,1,0);
+                        this.scene.translate(0,1,-1);
+                        this.branch.display();
+                    this.scene.popMatrix();
+                }
+        
+            this.scene.popMatrix();
         this.scene.popMatrix();
     }
     update(t,flapF) {
