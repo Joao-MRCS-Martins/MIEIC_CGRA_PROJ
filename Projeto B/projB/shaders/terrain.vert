@@ -8,6 +8,7 @@ uniform mat4 uNMatrix;//normal transformation matrix
 
 varying vec2 vTextureCoord;
 uniform sampler2D uSampler2 ;
+uniform sampler2D uSampler3;
 
 uniform float normScale;
 

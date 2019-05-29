@@ -25,8 +25,8 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(1000/FR);
 
         
-        this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
-        this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
+       // this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
+       // this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
@@ -150,10 +150,12 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        //this.setActiveShader(this.terrainShader);
-        //this.plane.terrainMap.bind(1);
-        //this.plane.display();
-        
+       // this.setActiveShader(this.terrainShader);
+        this.plane.terrainMap.bind(1);
+        this.plane.display();
+
+        /*
+
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         //this.translate(0,5,0);
@@ -175,6 +177,7 @@ class MyScene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
         this.popMatrix();
+        */
         // ---- END Primitive drawing section
 
 
