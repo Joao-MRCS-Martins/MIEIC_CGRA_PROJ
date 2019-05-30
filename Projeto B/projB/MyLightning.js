@@ -5,11 +5,13 @@ class MyLightning extends MyLSystem{
 
     initGrammar(){
         this.grammar = {
-            "X": new MyQuad(),
-            "F": new MyQuad()
+            "X": new MyQuad(this.scene),
+            "F": new MyQuad(this.scene)
         }
 
     }
+
+    
 
 
 }

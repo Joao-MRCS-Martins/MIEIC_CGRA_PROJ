@@ -24,15 +24,37 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FR);
 
-        
-       // this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
-       // this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
+        this.iterations = 3;
+        this.angle = 25.0;
+        this.axiom = "X";
+        this.scaleFactor = 0.5;
+        this.lSystem = new MyLightning(this);
+        this.ruleF = "FF";
+        this.ruleX = "F[-X][X]F[-X]+FX";
+
+        this.doGenerate = function () {
+            this.lSystem.generate(
+                this.axiom,
+                {
+                    "F": [ this.ruleF ],
+                    "X": [ this.ruleI,this.ruleII,this.ruleIII,this.ruleIV,this.ruleV,this.ruleVI,this.ruleVII,this.ruleVIII,this.ruleIX,this.ruleX],
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        // do initial generation
+        this.doGenerate();
+
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
         this.bird = new MyBird(this);
         this.plane = new MyTerrain(this,60);
-        
+
         this.branches_pos = [ Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8, //x, rotation on y, z
                             Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
                             Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
@@ -151,8 +173,10 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
        // this.setActiveShader(this.terrainShader);
-        this.plane.terrainMap.bind(1);
-        this.plane.display();
+       // this.plane.terrainMap.bind(1);
+        //this.plane.display();
+
+        this lSystem.display();
 
         /*
 
