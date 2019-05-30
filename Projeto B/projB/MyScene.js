@@ -176,7 +176,7 @@ class MyScene extends CGFscene {
        // this.plane.terrainMap.bind(1);
         //this.plane.display();
 
-        this lSystem.display();
+        this.lSystem.display();
 
         /*
 
