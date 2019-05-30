@@ -38,10 +38,10 @@ class MyScene extends CGFscene {
                             Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
                             Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8];
                             
-        this.branches = [  new MyTreeBranch(this,this.branches_pos[0],this.branches_pos[1],this.branches_pos[2]),
-                           new MyTreeBranch(this,this.branches_pos[3],this.branches_pos[4],this.branches_pos[5]),
-                           new MyTreeBranch(this,this.branches_pos[6],this.branches_pos[7],this.branches_pos[8]),
-                           new MyTreeBranch(this,this.branches_pos[9],this.branches_pos[10],this.branches_pos[11])];
+        this.branches = [  new MyTreeBranch(this,this.branches_pos[0],this.branches_pos[1],this.branches_pos[2],false),
+                           new MyTreeBranch(this,this.branches_pos[3],this.branches_pos[4],this.branches_pos[5],false),
+                           new MyTreeBranch(this,this.branches_pos[6],this.branches_pos[7],this.branches_pos[8],false),
+                           new MyTreeBranch(this,this.branches_pos[9],this.branches_pos[10],this.branches_pos[11],false)];
 
         this.nest = new MyNest(this,0,5);
                             
@@ -151,10 +151,10 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
        // this.setActiveShader(this.terrainShader);
-        this.plane.terrainMap.bind(1);
-        this.plane.display();
+        //this.plane.terrainMap.bind(1);
+        //this.plane.display();
 
-        /*
+        
 
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
@@ -169,7 +169,7 @@ class MyScene extends CGFscene {
         
         for(var i =0; i < this.branches.length; i++) {
             this.pushMatrix();
-            this.scale(0.5,0.5,0.5);
+            this.scale(0.4,0.4,0.4);
             this.branches[i].display();
             this.popMatrix();
         }
@@ -177,7 +177,7 @@ class MyScene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
         this.popMatrix();
-        */
+        
         // ---- END Primitive drawing section
 
 

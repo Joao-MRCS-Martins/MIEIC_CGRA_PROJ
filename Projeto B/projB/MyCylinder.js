@@ -30,6 +30,8 @@ class MyCylinder extends CGFobject {
             this.vertices.push(caa, 0, saa);
             this.vertices.push(caa,1,saa);            
             this.vertices.push(ca,1,sa);
+            //this.vertices.push(0,0,0);
+            //this.vertices.push(0,1,0);
             
 
             this.texCoords.push(
