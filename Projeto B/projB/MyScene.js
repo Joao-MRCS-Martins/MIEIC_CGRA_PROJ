@@ -66,7 +66,7 @@ class MyScene extends CGFscene {
                            new MyTreeBranch(this,this.branches_pos[9],this.branches_pos[10],this.branches_pos[11])];
 
         this.nest = new MyNest(this,0,5);
-                            
+        this.quad = new MyQuad(this);                  
         this.scaleFactor = 1;
         this.speedFactor = 1;
         this.bird_speed =0;
@@ -180,7 +180,7 @@ class MyScene extends CGFscene {
         //this.plane.display();
         this.pushMatrix();
         this.lSystem.display();
-       
+        //this.quad.display();
         this.popMatrix();
 
         /*
