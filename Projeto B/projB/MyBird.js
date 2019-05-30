@@ -122,7 +122,6 @@ class MyBird extends CGFobject {
             this.pos[1] += this.speed*(t-this.time)/10000;
         }
         else {
-            console.log("what");
             this.pos[1] = 5 + Math.sin(Math.PI*t/500);
         }
         this.pos[2] += (this.speed)*(t-this.time)/10000*Math.cos(this.oriented);

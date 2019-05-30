@@ -125,7 +125,7 @@ class MyLSystem extends CGFobject {
                     var primitive=this.grammar[this.axiom[i]];
 
                     if ( primitive )
-                    {
+                    {   
                         primitive.display();
                         this.scene.translate(0, 1, 0);
                     }

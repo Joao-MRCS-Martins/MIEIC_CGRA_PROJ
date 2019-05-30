@@ -31,13 +31,14 @@ class MyScene extends CGFscene {
         this.lSystem = new MyLightning(this);
         this.ruleF = "FF";
         this.ruleX = "F[-X][X]F[-X]+FX";
+        this.ruleX2 = "FX+[-X]F[X][-X]F";
 
         this.doGenerate = function () {
             this.lSystem.generate(
                 this.axiom,
                 {
                     "F": [ this.ruleF ],
-                    "X": [ this.ruleI,this.ruleII,this.ruleIII,this.ruleIV,this.ruleV,this.ruleVI,this.ruleVII,this.ruleVIII,this.ruleIX,this.ruleX],
+                    "X": [ this.ruleX,this.ruleX2],
                 },
                 this.angle,
                 this.iterations,
@@ -51,7 +52,6 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new Plane(this, 32);
         this.bird = new MyBird(this);
         this.plane = new MyTerrain(this,60);
 
@@ -130,6 +130,9 @@ class MyScene extends CGFscene {
             text += " Pick-up ";
             this.bird.dropping = true;
         }
+        if(this.gui.isKeyPressed("KeyL")){
+            text+= " Lightning ";
+        }
         
         if (keysPressed)
             console.log(text);
@@ -175,8 +178,10 @@ class MyScene extends CGFscene {
        // this.setActiveShader(this.terrainShader);
        // this.plane.terrainMap.bind(1);
         //this.plane.display();
-
+        this.pushMatrix();
         this.lSystem.display();
+       
+        this.popMatrix();
 
         /*
 
