@@ -2,9 +2,7 @@ class MyLightning extends MyLSystem{
     constructor(scene){
         super(scene);
         this.initialTime= 0;
-        this.time;
-        this.depth;
-
+        this.depth = -1;
 
 
     }
@@ -17,12 +15,48 @@ class MyLightning extends MyLSystem{
 
     }
 
+
+    generate(_axiom, _productions, _angle, _iterations, _scale){
+        // copia o axioma da cena para iniciar a sequência de desenvolvimento
+        this.axiom = _axiom;
+
+        // cria as producoes
+        this.productions=_productions;
+
+        // angulo de rotacao
+        this.angle = _angle * Math.PI / 180.0;
+
+        // numero de iteracoes
+        this.iterations = _iterations;
+
+        // escalamento dos elementos dependente do numero de iteracoes
+        this.scale = Math.pow(_scale, this.iterations-1);
+
+        // desenvolve a sequencia de desenvolvimento do Sistema L
+        //this.iterate()
+     }
+
     startAnimation(t){
-        this.depth = 0;
+        
+        if(this.axiom.length <=1){
         this.initialTime = t;
+        this.iterate();
+        
+        this.depth = 0;
+        }
     }
 
     update(t){
+        if(this.depth > this.axiom.length){
+            this.depth = -1;
+            this.axiom = "X";
+        }
+        
+        if(this.depth >= 0)
+            this.depth = (t-this.initialTime) *(this.axiom.length / 1000);
+
+        
+        
 
     }
     
@@ -33,9 +67,8 @@ class MyLightning extends MyLSystem{
         this.scene.scale(this.scale, this.scale, this.scale);
 
         var i;
-
         // percorre a cadeia de caracteres
-        for (i=0; i<this.axiom.length; ++i){
+        for (i=0; i<this.depth; ++i){
 
             // verifica se sao caracteres especiais
             switch(this.axiom[i]){

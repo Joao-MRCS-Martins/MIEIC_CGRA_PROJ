@@ -5,7 +5,7 @@ class MyLightElement extends CGFobject{
 
         this.white = new CGFappearance(scene);
         this.white.setDiffuse(1,1,1,1);
-        this.white.setSpecular(0,0,0,1);
+        this.white.setSpecular(1,1,1,1);
         this.white.setShininess(120);
     }
 

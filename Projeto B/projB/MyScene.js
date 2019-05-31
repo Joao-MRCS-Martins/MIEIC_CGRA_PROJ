@@ -48,8 +48,7 @@ class MyScene extends CGFscene {
 
         // do initial generation
         this.doGenerate();
-
-
+        
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.bird = new MyBird(this);
@@ -90,7 +89,7 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    checkKeys()  {
+    checkKeys(t)  {
         var text="Keys pressed: ";
         var keysPressed=false;
         
@@ -128,10 +127,13 @@ class MyScene extends CGFscene {
 
         if(this.gui.isKeyPressed("KeyP")) {
             text += " Pick-up ";
+            keysPressed = true;
             this.bird.dropping = true;
         }
         if(this.gui.isKeyPressed("KeyL")){
-            text+= " Lightning ";
+            text += " Lightning ";
+            keysPressed = true;
+            this.lSystem.startAnimation(t);
         }
         
         if (keysPressed)
@@ -139,8 +141,11 @@ class MyScene extends CGFscene {
     }
     update(t){
 
-        this.checkKeys();
+        this.checkKeys(t);
         this.updateBirdFlight(t);
+        
+        
+        this.lSystem.update(t);
     }
 
     updateBirdFlight(t) {
