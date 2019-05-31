@@ -13,8 +13,8 @@ class MyTreeBranch extends CGFobject {
         this.z = z;
         this.nest = nest; //boolean
 
-        this.branch = new MyCylinder(scene,5);
-        this.lid = new MyCircle(scene,5);
+        this.branch = new MyCylinder(scene,6);
+        this.lid = new MyCircle(scene,6);
 
         if(nest){
             //hay material (nest)
@@ -45,6 +45,7 @@ class MyTreeBranch extends CGFobject {
         }
         this.scene.pushMatrix();
         this.scene.pushMatrix();
+        this.scene.scale(0.4,0.4,0.4);
         this.scene.translate(this.x,0,this.z);
         this.scene.rotate(this.angle,0,1,0);
         this.scene.rotate(Math.PI/2,1,0,0);
