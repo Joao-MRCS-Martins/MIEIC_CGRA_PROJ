@@ -44,6 +44,11 @@ class MyScene extends CGFscene {
                            new MyTreeBranch(this,this.branches_pos[9],this.branches_pos[10],this.branches_pos[11],false)];
 
         this.nest = new MyNest(this,0,5);
+
+        this.house = new MyHouse(this);
+
+        this.unitCube = new MyUnitCube(this);
+        this.wing = new MyWing(this);
                             
         this.scaleFactor = 1;
         this.speedFactor = 1;
@@ -119,6 +124,7 @@ class MyScene extends CGFscene {
     }
 
     updateBirdFlight(t) {
+        this.bird.updateScaleF(this.scaleFactor);
         this.bird.update(t,this.speedFactor);
         if(this.bird.pos[1] <= 0) {
             if(this.bird.branch) {
@@ -127,7 +133,7 @@ class MyScene extends CGFscene {
             else
                 this.bird.pickBranch(this.branches);
         }
-        else if (this.bird.pos[1] >= 5) {
+        else if (this.bird.pos[1] >= 2.5) {
             this.bird.lifting = false;
         }
     }
@@ -144,39 +150,38 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        //this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-       // this.setActiveShader(this.terrainShader);
+        //this.setActiveShader(this.terrainShader);
         //this.plane.terrainMap.bind(1);
         //this.plane.display();
 
+        this.pushMatrix();
+        this.scale(3,3,3);
+        this.translate(5,0,0);
+        this.house.display();
+        this.popMatrix();
+
         
-
-        this.pushMatrix();
-        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        //this.translate(0,5,0);
         this.bird.display();
-        this.popMatrix();
-
-        this.pushMatrix();
+  
         this.nest.display();
-        this.popMatrix();
 
         
         for(var i =0; i < this.branches.length; i++) {
             this.pushMatrix();
-            this.scale(0.4,0.4,0.4);
             this.branches[i].display();
             this.popMatrix();
         }
+        
+
+
 
         this.setActiveShader(this.defaultShader);
-        this.pushMatrix();
-        this.popMatrix();
         
         // ---- END Primitive drawing section
 
