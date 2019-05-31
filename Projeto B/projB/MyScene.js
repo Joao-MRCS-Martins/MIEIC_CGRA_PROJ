@@ -23,16 +23,16 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FR);
+        this.lSystem = new MyLightning(this);
 
         
-       // this.terrainShader = new CGFshader(this.gl,"shaders/terrain.vert","shaders/terrain.frag");
-       // this.terrainShader.setUniformsValues({uSampler2: 1, uSampler3:2});
+       
+        
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new Plane(this, 32);
         this.bird = new MyBird(this);
         this.plane = new MyTerrain(this,60);
-        
+
         this.branches_pos = [ Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8, //x, rotation on y, z
                             Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
                             Math.random() * 20  - 8, Math.random()*Math.PI,Math.random() * 20  - 8,
@@ -44,6 +44,7 @@ class MyScene extends CGFscene {
                            new MyTreeBranch(this,this.branches_pos[9],this.branches_pos[10],this.branches_pos[11],false)];
 
         this.nest = new MyNest(this,0,5);
+        //this.quad = new MyQuad(this);                  
 
         this.house = new MyHouse(this);
 
@@ -73,7 +74,7 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    checkKeys()  {
+    checkKeys(t)  {
         var text="Keys pressed: ";
         var keysPressed=false;
         
@@ -111,7 +112,13 @@ class MyScene extends CGFscene {
 
         if(this.gui.isKeyPressed("KeyP")) {
             text += " Pick-up ";
+            keysPressed = true;
             this.bird.dropping = true;
+        }
+        if(this.gui.isKeyPressed("KeyL")){
+            text += " Lightning ";
+            keysPressed = true;
+            this.lSystem.startAnimation(t);
         }
         
         if (keysPressed)
@@ -119,8 +126,11 @@ class MyScene extends CGFscene {
     }
     update(t){
 
-        this.checkKeys();
+        this.checkKeys(t);
         this.updateBirdFlight(t);
+        
+        
+        this.lSystem.update(t);
     }
 
     updateBirdFlight(t) {
@@ -156,9 +166,15 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        //this.setActiveShader(this.terrainShader);
-        //this.plane.terrainMap.bind(1);
+       // this.setActiveShader(this.terrainShader);
+       // this.plane.terrainMap.bind(1);
         //this.plane.display();
+        this.pushMatrix();
+        this.lSystem.display();
+        //this.quad.display();
+        this.popMatrix();
+
+        
 
         this.pushMatrix();
         this.scale(3,3,3);

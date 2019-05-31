@@ -35,4 +35,4 @@ class MyTerrain extends CGFobject {
         this.scene.popMatrix();
        // this.appearance.apply();
     }
-}
+}   

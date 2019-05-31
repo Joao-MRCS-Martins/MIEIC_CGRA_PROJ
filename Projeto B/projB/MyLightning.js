@@ -1,30 +1,35 @@
-/**
- * MyLSystem
- * @constructor
- * @param scene - Reference to MyScene object
- */
-class MyLSystem extends CGFobject {
-	constructor(scene) {
+class MyLightning extends MyLSystem{
+    constructor(scene){
         super(scene);
-        this.init();
+        this.initialTime= 0;
+        this.depth = -1;
+
+        this.iterations = 3;
+        this.angle = 25.0 * Math.PI / 180.0;
+        this.axiom = "X";
+        this.scaleFactor = 0.5;
+        this.ruleF = "FF";
+        this.ruleX = "F[-X][X]F[-X]+FX";
+        this.ruleX2 = "FX+[-X]F[X][-X]F";
+
+        this.productions = {
+            "F": [ this.ruleF ],
+            "X": [ this.ruleX,this.ruleX2],
+        };
+        this.scale = Math.pow(this.scaleFactor, this.iterations-1);
+
     }
+        
 
-    init(){
-        // cria o lexico da gramática
-        this.initGrammar()
-
-    }
-
-    // cria o lexico da gramática
     initGrammar(){
         this.grammar = {
-            "F": new MyRectangle(this.scene, 0.2, 1),
-            "X": new MyRectangle(this.scene, 0.5, 0.5)
-        };
+            "X": new MyLightElement(this.scene),
+            "F": new MyLightElement(this.scene)
+        }
+
     }
 
 
-    // gera o sistema L com os par�metros atuais da cena
     generate(_axiom, _productions, _angle, _iterations, _scale){
         // copia o axioma da cena para iniciar a sequência de desenvolvimento
         this.axiom = _axiom;
@@ -42,46 +47,42 @@ class MyLSystem extends CGFobject {
         this.scale = Math.pow(_scale, this.iterations-1);
 
         // desenvolve a sequencia de desenvolvimento do Sistema L
-        this.iterate()
+        //this.iterate()
      }
 
-  
-    // desenvolve o axioma ao longo de uma sequência de desenvolvimento com um determinado número de iterações
-    iterate(){
-        var i, j;
-        for (i=0; i < this.iterations; ++i){
-            var newString = "";
-
-            // substitui cada um dos caracteres da cadeia de caracteres de acordo com as produções
-            for (j=0; j<this.axiom.length; ++j){
-                var axiomProductions=this.productions[this.axiom[j]];
-                // aplicar producoes
-                if (axiomProductions === undefined){
-                    // caso nao se aplique nenhuma producao deixa estar o caracter original
-                    newString += this.axiom[j];
-                }else if (axiomProductions.length == 1) {
-                    // caso apenas exista uma producao, aplica-a
-                    newString += axiomProductions[0];
-                } else {
-                    // sistema estocastico - varias producoes sao aplicaveis - seleciona aleatoriamente
-                    newString += axiomProductions[Math.floor(Math.random() * axiomProductions.length)];                    
-                }
-            }
-
-            this.axiom = newString;
+    startAnimation(t){
+        
+        if(this.axiom.length <=1){
+        this.initialTime = t;
+        this.iterate();
+        
+        this.depth = 0;
         }
-        console.log("Final: "+this.axiom);
-        console.log("(length: "+this.axiom.length+")");
     }
+
+    update(t){
+        if(this.depth > this.axiom.length){
+            this.depth = -1;
+            this.axiom = "X";
+        }
+        
+        if(this.depth >= 0)
+            this.depth = (t-this.initialTime) *(this.axiom.length / 1000);
+
+        
+        
+
+    }
+    
+
 
     display(){
         this.scene.pushMatrix();
         this.scene.scale(this.scale, this.scale, this.scale);
 
         var i;
-
         // percorre a cadeia de caracteres
-        for (i=0; i<this.axiom.length; ++i){
+        for (i=0; i<this.depth; ++i){
 
             // verifica se sao caracteres especiais
             switch(this.axiom[i]){
@@ -133,5 +134,9 @@ class MyLSystem extends CGFobject {
             }
         }
         this.scene.popMatrix();
+
+
+
     }
+
 }
