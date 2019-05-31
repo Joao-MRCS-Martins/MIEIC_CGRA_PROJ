@@ -1,11 +1,12 @@
 /**
-* MyCylinder
+* MyPrism
 * @constructor
 */
-class MyCylinder extends CGFobject {
-    constructor(scene, slices) {
+class MyPrism extends CGFobject {
+    constructor(scene, slices, stacks) {
         super(scene);
         this.slices = slices;
+        this.stacks = stacks;
         this.initBuffers();
     }
     initBuffers() {
@@ -30,36 +31,27 @@ class MyCylinder extends CGFobject {
             this.vertices.push(caa, 0, saa);
             this.vertices.push(caa,1,saa);            
             this.vertices.push(ca,1,sa);
-            //this.vertices.push(0,0,0);
-            //this.vertices.push(0,1,0);
             
-
             this.texCoords.push(
                 i*1/this.slices, 0,
                 (i+1)*1/this.slices,0,
                 i*1/this.slices, 1,
                 (i+1)*1/this.slices, 1
             );
-            
-            // triangle normal computed by cross product of two edges
-            
-            var normal = [
-                Math.cos(ang+alphaAng),
-                0,
-                Math.sin(ang + alphaAng)
-            ];
 
-            var normal1 = [
-                Math.cos(ang),
+
+            // triangle normal computed by cross product of two edges
+            var normal= [
+                Math.cos(ang + alphaAng/2),
                 0,
-                Math.sin(ang)
+                Math.sin(ang + alphaAng/2)
             ];
 
             // push normal once for each vertex of this triangle
-            this.normals.push(...normal1);
             this.normals.push(...normal);
             this.normals.push(...normal);
-            this.normals.push(...normal1);
+            this.normals.push(...normal);
+            this.normals.push(...normal);
            
             this.indices.push(  4*i, (4*i+2) , (4*i+1),
                                 (4*i+3), (4*i +2),(4*i));
