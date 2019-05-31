@@ -4,8 +4,22 @@ class MyLightning extends MyLSystem{
         this.initialTime= 0;
         this.depth = -1;
 
+        this.iterations = 3;
+        this.angle = 25.0 * Math.PI / 180.0;
+        this.axiom = "X";
+        this.scaleFactor = 0.5;
+        this.ruleF = "FF";
+        this.ruleX = "F[-X][X]F[-X]+FX";
+        this.ruleX2 = "FX+[-X]F[X][-X]F";
+
+        this.productions = {
+            "F": [ this.ruleF ],
+            "X": [ this.ruleX,this.ruleX2],
+        };
+        this.scale = Math.pow(this.scaleFactor, this.iterations-1);
 
     }
+        
 
     initGrammar(){
         this.grammar = {

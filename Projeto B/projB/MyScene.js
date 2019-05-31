@@ -23,31 +23,10 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FR);
-
-        this.iterations = 3;
-        this.angle = 25.0;
-        this.axiom = "X";
-        this.scaleFactor = 0.5;
         this.lSystem = new MyLightning(this);
-        this.ruleF = "FF";
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.ruleX2 = "FX+[-X]F[X][-X]F";
 
-        this.doGenerate = function () {
-            this.lSystem.generate(
-                this.axiom,
-                {
-                    "F": [ this.ruleF ],
-                    "X": [ this.ruleX,this.ruleX2],
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
-        }
-
-        // do initial generation
-        this.doGenerate();
+        
+       
         
         //Initialize scene objects
         this.axis = new CGFaxis(this);
