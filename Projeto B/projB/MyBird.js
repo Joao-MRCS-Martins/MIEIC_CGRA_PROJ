@@ -151,11 +151,7 @@ class MyBird extends CGFobject {
             this.pos[1] += Math.abs(Math.sin((t-this.time)/(Math.PI*60)));
         }
         else {
-<<<<<<< HEAD
-            this.pos[1] = 5 + Math.sin(Math.PI*t/500);
-=======
             this.pos[1] = 3+Math.sin(t/(Math.PI*60));
->>>>>>> master
         }
         this.time = t;
     }
