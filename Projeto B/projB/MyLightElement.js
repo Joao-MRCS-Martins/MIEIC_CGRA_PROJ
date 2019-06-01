@@ -19,6 +19,7 @@ class MyLightElement extends CGFobject{
 
 
     display(){
+        
         this.white.apply();
         this.scene.pushMatrix();
         this.scene.scale(0.1,1,1);

@@ -7,10 +7,15 @@ class MyBranch extends CGFobject {
         this.woodAppearance = new CGFappearance(scene);
         this.woodAppearance.setDiffuse(168/255,120/255,0,1);
         this.woodAppearance.setShininess(80);
+        this.texture = new CGFtexture(this.scene,"images/textures/tree_trunk.png");
+        this.woodAppearance.setTexture(this.texture);
     }
 
     display() {
         this.woodAppearance.apply();
+        this.scene.pushMatrix();
+        this.scene.translate(1,0,0);
+        this.scene.popMatrix();
         this.branch.display();
     }
 

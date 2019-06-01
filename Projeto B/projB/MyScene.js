@@ -26,7 +26,7 @@ class MyScene extends CGFscene {
         this.lSystem = new MyLightning(this);
         this.tree = new MyLSPlant(this);
 
-        //to remove
+        
 
 
         //Initialize scene objects
@@ -60,6 +60,9 @@ class MyScene extends CGFscene {
         this.bird_angle = 0;
         //Objects connected to MyInterface
 
+
+        //to delete
+        this.test = new MyCylinder(this,10);
     }
 
     initLights() {
@@ -167,7 +170,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-
+       
 
         this.terrain.display();
 
@@ -194,10 +197,11 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
          this.pushMatrix();
-         this.scale(5,5,5);
+         this.translate(0,4,0);
+         this.scale(2,2,2);
          this.tree.display();
+         this.popMatrix();
 
-        this.popMatrix();
         this.pushMatrix();
         this.translate(0, 15, 0);
         this.rotate(Math.PI, 1, 0, 0);

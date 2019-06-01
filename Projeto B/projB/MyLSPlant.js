@@ -15,21 +15,20 @@ class MyLSPlant extends MyLSystem {
          this.iterations = 4;
          this.scaleFactor = 0.5;
  
-         this.ruleI  ="F[-X][X]F[-X]+X";
-         this.ruleII ="F[-X][X]+X";
-         this.ruleIII ="F[+X]-X";
+         this.ruleII  ="F[-X][X]F[-X]+X";
+         this.ruleIII ="F[-X][X]+X";
          this.ruleIV = "F[+X]-X";
          this.ruleV = "F[/X][X]F[\\\\X]+X";
          this.ruleVI = "F[\\X][X]/X";
          this.ruleVII = "F[/X]\\X";
          this.ruleVIII = "F[^X][X]F[&X]^X";
-         this.ruleIX = "F[^x]&X";
+         this.ruleIX = "F[^X]&X";
          this.ruleX = "F[&X]^X";
 
          this.productions = 
                 {
                     "F": [ this.ruleF ],
-                    "X": [ this.ruleI,this.ruleII,this.ruleIII,this.ruleIV,this.ruleV,this.ruleVI,this.ruleVII,this.ruleVIII,this.ruleIX,this.ruleX],
+                    "X": [ this.ruleII,this.ruleIII,this.ruleIV,this.ruleV,this.ruleVI,this.ruleVII,this.ruleVIII,this.ruleIX,this.ruleX],
                 };
                 this.scale = Math.pow(this.scaleFactor, this.iterations-1);
         this.iterate();
