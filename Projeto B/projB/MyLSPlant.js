@@ -12,7 +12,7 @@ class MyLSPlant extends MyLSystem {
          this.ruleF = "FF"; 
     
          this.angle = 30.0* Math.PI / 180;
-         this.iterations = 4;
+         this.iterations = 5;
          this.scaleFactor = 0.5;
  
          this.ruleII  ="F[-X][X]F[-X]+X";
