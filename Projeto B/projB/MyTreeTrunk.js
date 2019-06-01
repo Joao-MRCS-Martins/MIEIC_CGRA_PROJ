@@ -1,7 +1,7 @@
-class MyBranch extends CGFobject {
+class MyTreeTrunk extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.branch = new MyCylinder(scene,10);
+        this.tree_trunk = new MyCylinder(scene,10);
 
         //trunk material
         this.woodAppearance = new CGFappearance(scene);
@@ -12,12 +12,8 @@ class MyBranch extends CGFobject {
     }
 
     display() {
-        this.woodAppearance.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(1,0,0);
-        this.scene.scale(0.5,1,0.5);
-        this.scene.popMatrix();
-        this.branch.display();
+        this.woodAppearance.apply();   
+        this.tree_trunk.display();
     }
 
 }

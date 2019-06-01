@@ -37,7 +37,7 @@ class MyLSPlant extends MyLSystem {
     // cria o lexico da gramática
     initGrammar(){
         this.grammar = {
-            "F": new MyBranch(this.scene),
+            "F": new MyTreeTrunk(this.scene),
             "X": new MyLeaf(this.scene)
 
         };

@@ -14,18 +14,13 @@ class MyLightElement extends CGFobject{
 */
         
     }
-
-
-
-
     display(){
-        
         this.white.apply();
+        
         this.scene.pushMatrix();
-        this.scene.scale(0.1,1,1);
-        this.scene.translate(0.5,0.5,0);
-        this.quad.display();
+            this.scene.scale(0.1,1,1);
+            this.scene.translate(0.5,0.5,0);
+            this.quad.display();
         this.scene.popMatrix();
-
     }
 }

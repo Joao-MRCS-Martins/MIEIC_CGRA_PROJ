@@ -28,12 +28,13 @@ class MyTerrain extends CGFobject {
         this.terrainMap.bind(1);
         this.altimetry.bind(2);
         this.terrain.apply();
+
         this.scene.pushMatrix();
-        this.scene.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scene.scale(60, 60, 10);
-        this.plane.display();
+            this.scene.rotate(-0.5*Math.PI, 1, 0, 0);
+            this.scene.scale(60, 60, 10);
+            this.plane.display();
         this.scene.popMatrix();
-       // this.appearance.apply();
-       this.scene.setActiveShader(this.scene.defaultShader);
+        
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 }   

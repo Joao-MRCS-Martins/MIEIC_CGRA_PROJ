@@ -15,46 +15,40 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     display() {
-        
-        //this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.pushMatrix();
-        this.scene.translate(0,0,0.5);
-        this.front.display();
+            this.scene.translate(0,0,0.5);
+            this.front.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(0,0,-0.5);
-        this.scene.rotate(Math.PI,0,1,0);
-        this.back.display();
+            this.scene.translate(0,0,-0.5);
+            this.scene.rotate(Math.PI,0,1,0);
+            this.back.display();
         this.scene.popMatrix();
         
         this.scene.pushMatrix();
-        this.scene.translate(-0.5,0,0);
-        this.scene.rotate(-Math.PI/2,0,1,0);
-        this.left.display();
+            this.scene.translate(-0.5,0,0);
+            this.scene.rotate(-Math.PI/2,0,1,0);
+            this.left.display();
         this.scene.popMatrix();       
 
 
         this.scene.pushMatrix();
-        this.scene.translate(0.5,0,0);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.right.display();
-        this.scene.popMatrix();
-
-        
-        //this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        this.scene.pushMatrix();
-        this.scene.translate(0,0.5,0);
-        this.scene.rotate(-Math.PI/2,1,0,0);
-        this.top.display();
+            this.scene.translate(0.5,0,0);
+            this.scene.rotate(Math.PI/2,0,1,0);
+            this.right.display();
         this.scene.popMatrix();
         
-        
-        //this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,0);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.bottom.display();
+            this.scene.translate(0,0.5,0);
+            this.scene.rotate(-Math.PI/2,1,0,0);
+            this.top.display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+            this.scene.translate(0,-0.5,0);
+            this.scene.rotate(Math.PI/2,1,0,0);
+            this.bottom.display();
         this.scene.popMatrix();
     }
 
@@ -66,9 +60,4 @@ class MyUnitCubeQuad extends CGFobject {
         this.right.updateTexCoords(coords.slice(32,40));
         this.back.updateTexCoords(coords.slice(40,48));
 	}
-
-
-
-
-
 }

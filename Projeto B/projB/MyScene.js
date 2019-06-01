@@ -4,6 +4,7 @@
  */
 
 const FR = 60;
+const nBranches = 12;
 class MyScene extends CGFscene {
     constructor() {
         super();
@@ -23,45 +24,29 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
         this.setUpdatePeriod(1000 / FR);
-        this.lSystem = new MyLightning(this);
-        this.forest = new MyForest(this);
-
         
-
-
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.bird = new MyBird(this,3,3);
+        this.skybox = new MyCubeMap(this,300);
+        this.bird = new MyBird(this,0,0);
         this.terrain = new MyTerrain(this, 60);
+        this.forest = new MyForest(this);
+        this.lSystem = new MyLightning(this);
+        
+        //scattered branches array with its positions (x,angle,z)
+        this.branches = [];
+        for(var i = 0; i < nBranches ; i++) {
+            this.branches.push(new MyTreeBranch(this, Math.random() * 15 - 8, Math.random() * Math.PI, Math.random() * 15 - 8, false));
+        }
+        
 
-        this.branches_pos = [Math.random() * 20 - 8, Math.random() * Math.PI, Math.random() * 20 - 8, //x, rotation on y, z
-            Math.random() * 20 - 8, Math.random() * Math.PI, Math.random() * 20 - 8,
-            Math.random() * 20 - 8, Math.random() * Math.PI, Math.random() * 20 - 8,
-            Math.random() * 20 - 8, Math.random() * Math.PI, Math.random() * 20 - 8
-        ];
-
-        this.branches = [new MyTreeBranch(this, this.branches_pos[0], this.branches_pos[1], this.branches_pos[2], false),
-            new MyTreeBranch(this, this.branches_pos[3], this.branches_pos[4], this.branches_pos[5], false),
-            new MyTreeBranch(this, this.branches_pos[6], this.branches_pos[7], this.branches_pos[8], false),
-            new MyTreeBranch(this, this.branches_pos[9], this.branches_pos[10], this.branches_pos[11], false)
-        ];
-
-        this.nest = new MyNest(this, 0, 5);
-        //this.quad = new MyQuad(this);                  
+        this.nest = new MyNest(this, 0, 0);                  
 
         this.house = new MyHouse(this);
 
-        this.unitCube = new MyUnitCube(this);
-
+        //Objects connected to MyInterface
         this.scaleFactor = 1;
         this.speedFactor = 1;
-        this.bird_speed = 0;
-        this.bird_angle = 0;
-        //Objects connected to MyInterface
-
-
-        //to delete
-        this.test = new MyCylinder(this,10);
     }
 
     initLights() {
@@ -80,35 +65,29 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     checkKeys(t) {
-        var text = "Keys pressed: ";
         var keysPressed = false;
 
         if (this.gui.isKeyPressed("KeyW")) {
-            text += " Accelerate ";
             keysPressed = true;
             this.bird.accelerate(this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
-            text += "  Break ";
             keysPressed = true;
             this.bird.accelerate(-this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
-            text += " Turn_Left ";
             keysPressed = true;
             this.bird.turn(Math.PI / 8 * this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
-            text += " Turn_Right ";
             keysPressed = true;
             this.bird.turn(-Math.PI / 8 * this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyR")) {
-            text += " Reset ";
             this.scaleFactor = 1;
             this.speedFactor = 1;
             keysPressed = true;
@@ -116,25 +95,19 @@ class MyScene extends CGFscene {
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
-            text += " Pick-up ";
             keysPressed = true;
             this.bird.dropping = true;
         }
         if (this.gui.isKeyPressed("KeyL")) {
-            text += " Lightning ";
             keysPressed = true;
             this.lSystem.startAnimation(t);
         }
 
-        if (keysPressed)
-            console.log(text);
     }
     update(t) {
 
         this.checkKeys(t);
         this.updateBirdFlight(t);
-
-
         this.lSystem.update(t);
     }
 
@@ -170,62 +143,42 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
        
-
-        this.terrain.display();
-
-
+        this.skybox.display();
+        
+        this.pushMatrix();
+            this.translate(0,-4,0);
+            this.terrain.display();
+        this.popMatrix();
 
         this.pushMatrix();
             this.translate(-8, 0, -2.4);
             this.rotate(Math.PI / 2, 0, 1, 0);
             this.scale(3, 3, 3);
-            this.translate(0, 1.8, 0);
+            this.translate(1.5, 0.5, -0.5);
+            this.rotate(-Math.PI/4,0,1,0);
             this.house.display();
         this.popMatrix();
 
-        this.pushMatrix();
-            this.translate(0,4,0);
-            this.bird.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-            this.translate(0, 4, 0);
-            this.nest.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-          //  this.translate(0,4,0);
-          //  this.scale(2,2,2);
-            this.forest.display();
-        this.popMatrix();
+        this.bird.display();
         
-        this.pushMatrix();
-        this.translate(0,4,0);
+        this.nest.display();
+        
+        this.forest.display();
+        
         for(var i =0; i < this.branches.length; i++) {
-            this.pushMatrix();
             this.branches[i].display();
-            this.popMatrix();
         }
-        this.popMatrix();
         
         this.pushMatrix();
-            this.translate(0, 30, -30);
+            this.translate(0, 25, -15);
             this.rotate(Math.PI, 1, 0, 0);
             this.rotate(Math.PI,0,1,0);
             this.scale(5,5,5);
             this.lSystem.display();
         this.popMatrix();
         
-        
-
-
-
         this.setActiveShader(this.defaultShader);
 
         // ---- END Primitive drawing section
-
-
-
-
     }
 }

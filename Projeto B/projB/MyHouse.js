@@ -41,10 +41,10 @@ class MyHouse extends CGFobject{
 
         //rooftop
         this.scene.pushMatrix();
-        this.scene.translate(0,0.5,0);
-        this.scene.rotate(Math.PI/4,0,1,0);
-        this.roof_tex.apply();
-        this.roof.display();
+            this.scene.translate(0,0.5,0);
+            this.scene.rotate(Math.PI/4,0,1,0);
+            this.roof_tex.apply();
+            this.roof.display();
         this.scene.popMatrix();
         
         //walls
@@ -53,28 +53,28 @@ class MyHouse extends CGFobject{
         
         //columns
         this.scene.pushMatrix();
-        this.scene.scale(0.1,1,0.1);
-        this.scene.translate(6,-0.5,6);
-        this.col_tex.apply();
-        this.column.display();
+            this.scene.scale(0.1,1,0.1);
+            this.scene.translate(6,-0.5,6);
+            this.col_tex.apply();
+            this.column.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.scale(0.1,1,0.1);
-        this.scene.translate(-6,-0.5,6);
-        this.column.display();
+            this.scene.scale(0.1,1,0.1);
+            this.scene.translate(-6,-0.5,6);
+            this.column.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.scale(0.1,1,0.1);
-        this.scene.translate(6,-0.5,-6);
-        this.column.display();
+            this.scene.scale(0.1,1,0.1);
+            this.scene.translate(6,-0.5,-6);
+            this.column.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.scale(0.1,1,0.1);
-        this.scene.translate(-6,-0.5,-6);
-        this.column.display();
+            this.scene.scale(0.1,1,0.1);
+            this.scene.translate(-6,-0.5,-6);
+            this.column.display();
         this.scene.popMatrix();
     }
 }

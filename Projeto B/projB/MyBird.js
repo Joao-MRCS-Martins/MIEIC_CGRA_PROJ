@@ -72,6 +72,7 @@ class MyBird extends CGFobject {
         
             this.scene.pushMatrix();
                 this.scene.scale(-1,-1,-1);
+                //display the body and chest
                 this.scene.pushMatrix();
                     this.scene.rotate(Math.PI/4,0,1,0);
                     this.scene.rotate(Math.PI/2,1,0,1);
@@ -84,7 +85,7 @@ class MyBird extends CGFobject {
                     this.scene.scale(1.4,1.4,1);
                     this.quad.display(); //the chest
                 this.scene.popMatrix();
-                    
+                //display the wings
                 this.scene.pushMatrix();
                     this.scene.pushMatrix();
                         this.scene.rotate(-Math.PI/4,0,0,1);
@@ -99,7 +100,8 @@ class MyBird extends CGFobject {
                 this.scene.popMatrix();
                         
                 this.scene.translate(0,-0.9,-0.5);
-                        
+                
+                //display head and backhead
                 this.scene.pushMatrix();
                     this.scene.scale(0.8,0.8,0.8);
                     this.scene.translate(0,0,0.4);
@@ -114,7 +116,7 @@ class MyBird extends CGFobject {
                     this.scene.scale(1.4,1.4,1);
                     this.quad.display(); //the backhead
                 this.scene.popMatrix();
-                
+                //display the eyes
                 this.eye_color.apply();
                 this.scene.scale(0.2,0.2,0.2);
                 this.scene.translate(1.6,-0.8,-0.6);
@@ -122,7 +124,7 @@ class MyBird extends CGFobject {
                 this.scene.translate(-3.2,0,0);
                 this.eye.display();
             this.scene.popMatrix();
-                
+            //display the beak 
             this.scene.pushMatrix();
                 this.beak_color.apply();
                 this.scene.rotate(Math.PI/2,1,0,0);
@@ -131,7 +133,7 @@ class MyBird extends CGFobject {
                 this.scene.translate(2.4,2.8,-2.4);
                 this.beak.display();
             this.scene.popMatrix();
-                
+            //display the branch caught, if there is one
             if(this.branch) {
                 this.scene.pushMatrix();
                     this.scene.rotate(Math.PI/2,0,1,0);
@@ -143,7 +145,7 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
     update(t,flapF) {
-        this.wings.update(flapF*Math.sin(t/(Math.PI*60)));
+        this.wings.update(flapF*(Math.sin(t/(Math.PI*60)) + (this.speed)*(t-this.time)/10000));
         this.pos[0] += (this.speed)*(t-this.time)/10000 * Math.sin(this.oriented);
         this.pos[2] += (this.speed)*(t-this.time)/10000 * Math.cos(this.oriented);
         if(this.dropping) {
@@ -167,11 +169,9 @@ class MyBird extends CGFobject {
         this.dropping = false;
     }
     pickBranch(branches) {
-        console.log("Bird x: " + this.pos[0] + " z: " + this.pos[2]);
         if(!this.branch) {
             for(var i = 0; i < branches.length; i++) {
-                console.log("Branch["+i+"] x: "+branches[i].x + " z: " + branches[i].z);
-               if( Math.abs(branches[i].x -3*this.pos[0]) < 3 && Math.abs(branches[i].z -3*this.pos[2]) < 3) {
+                if( Math.abs(branches[i].x -3*this.pos[0]) < 3 && Math.abs(branches[i].z -3*this.pos[2]) < 3) {
                     this.branch = new MyTreeBranch(this.scene,0,0,0,false);
                     branches.splice(i,1);
                     break;
