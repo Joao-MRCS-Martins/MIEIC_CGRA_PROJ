@@ -6,7 +6,7 @@
 const OFFSET = 0.1;
 
 class MyBird extends CGFobject {
-    constructor(scene) {
+    constructor(scene,x,z) {
         super(scene);
 
         this.quad = new MyQuad(scene);
@@ -17,9 +17,11 @@ class MyBird extends CGFobject {
         this.wings = new MyWing(scene);
         this.branch; //= new MyTreeBranch(scene,0,0,0,false);
 
+        this.x = x;
+        this.z = z;
         this.oriented = 0;
         this.speed = 0;
-        this.pos = [0,5,0];
+        this.pos = [x,3,z];
         this.time = 0;
 
         this.scaleF = 1;
@@ -160,7 +162,7 @@ class MyBird extends CGFobject {
         this.speed = 0;
         this.scaleFactor = 1;
         this.speedFactor = 1;
-        this.pos = [0,5,0];
+        this.pos = [this.x,3,this.z];
         this.lifting = false;
         this.dropping = false;
     }

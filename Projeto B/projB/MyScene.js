@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.bird = new MyBird(this);
+        this.bird = new MyBird(this,3,3);
         this.terrain = new MyTerrain(this, 60);
 
         this.branches_pos = [Math.random() * 20 - 8, Math.random() * Math.PI, Math.random() * 20 - 8, //x, rotation on y, z
@@ -52,7 +52,6 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
 
         this.unitCube = new MyUnitCube(this);
-        this.wing = new MyWing(this);
 
         this.scaleFactor = 1;
         this.speedFactor = 1;
@@ -177,46 +176,45 @@ class MyScene extends CGFscene {
 
 
         this.pushMatrix();
-        this.translate(-8, 0, -2.4);
-        this.rotate(Math.PI / 2, 0, 1, 0);
-        this.scale(3, 3, 3);
-        this.translate(0, 1.8, 0);
-        this.house.display();
+            this.translate(-8, 0, -2.4);
+            this.rotate(Math.PI / 2, 0, 1, 0);
+            this.scale(3, 3, 3);
+            this.translate(0, 1.8, 0);
+            this.house.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 4, 0);
-        this.bird.display();
+            this.translate(0,4,0);
+            this.bird.display();
         this.popMatrix();
 
-
         this.pushMatrix();
-
-        this.translate(0, 4, 0);
-        this.nest.display();
+            this.translate(0, 4, 0);
+            this.nest.display();
         this.popMatrix();
 
-         this.pushMatrix();
-         this.translate(0,4,0);
-         this.scale(2,2,2);
-         this.tree.display();
-         this.popMatrix();
+        this.pushMatrix();
+            this.translate(0,4,0);
+            this.scale(2,2,2);
+            this.tree.display();
+        this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 15, 0);
-        this.rotate(Math.PI, 1, 0, 0);
-        this.rotate(Math.PI,0,1,0);
-        this.lSystem.display();
-
+            this.translate(0, 15, 0);
+            this.rotate(Math.PI, 1, 0, 0);
+            this.rotate(Math.PI,0,1,0);
+            this.lSystem.display();
         this.popMatrix();
 
         
-
-        // for(var i =0; i < this.branches.length; i++) {
-        //     this.pushMatrix();
-        //     this.branches[i].display();
-        //     this.popMatrix();
-        // }
+        this.pushMatrix();
+        this.translate(0,4,0);
+         for(var i =0; i < this.branches.length; i++) {
+             this.pushMatrix();
+             this.branches[i].display();
+             this.popMatrix();
+         }
+         this.popMatrix();
 
         
 

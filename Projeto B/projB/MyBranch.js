@@ -15,7 +15,7 @@ class MyBranch extends CGFobject {
         this.woodAppearance.apply();
         this.scene.pushMatrix();
         this.scene.translate(1,0,0);
-      //  this.scene.scale(0.5,1,0.5);
+        this.scene.scale(0.5,1,0.5);
         this.scene.popMatrix();
         this.branch.display();
     }

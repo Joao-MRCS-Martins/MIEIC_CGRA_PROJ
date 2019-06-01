@@ -11,7 +11,7 @@ class MyLSPlant extends MyLSystem {
          this.axiom = "X"; 
          this.ruleF = "FF"; 
     
-         this.angle = 30.0* Math.PI / 180;
+         this.angle = 45.0* Math.PI / 180;
          this.iterations = 4;
          this.scaleFactor = 0.5;
  
