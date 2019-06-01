@@ -198,26 +198,26 @@ class MyScene extends CGFscene {
             this.scale(2,2,2);
             this.tree.display();
         this.popMatrix();
-
-        this.pushMatrix();
-            this.translate(0, 15, 0);
-            this.rotate(Math.PI, 1, 0, 0);
-            this.rotate(Math.PI,0,1,0);
-            this.lSystem.display();
-        this.popMatrix();
-
         
         this.pushMatrix();
         this.translate(0,4,0);
-         for(var i =0; i < this.branches.length; i++) {
-             this.pushMatrix();
-             this.branches[i].display();
-             this.popMatrix();
-         }
-         this.popMatrix();
-
+        for(var i =0; i < this.branches.length; i++) {
+            this.pushMatrix();
+            this.branches[i].display();
+            this.popMatrix();
+        }
+        this.popMatrix();
         
-
+        this.pushMatrix();
+            this.translate(0, 30, 0);
+            this.rotate(Math.PI, 1, 0, 0);
+            this.rotate(Math.PI,0,1,0);
+            this.scale(5,5,5);
+            this.axis.display();
+            this.lSystem.display();
+        this.popMatrix();
+        
+        
 
 
 
