@@ -1,6 +1,7 @@
-class MyBranch {
+class MyBranch extends CGFobject {
     constructor(scene) {
-        this.branch = new MyCylinder(scene,3);
+        super(scene);
+        this.branch = new MyCylinder(scene,10);
 
         //trunk material
         this.woodAppearance = new CGFappearance(scene);

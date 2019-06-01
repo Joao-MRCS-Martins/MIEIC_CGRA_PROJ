@@ -1,6 +1,7 @@
-class MyLeaf {
+class MyLeaf extends CGFobject {
     constructor(scene) {
-        this.leaf = new MyDiamond(scene);
+        super(scene);
+        this.leaf = new MyRectTriangle(scene);
 
         //green material
         this.green = new CGFappearance(scene);
@@ -10,8 +11,14 @@ class MyLeaf {
     }
 
     display() {
+        this.scene.pushMatrix();
         this.green.apply();
+        //this.scene.translate(0.5,0.5,0)
+        this.scene.scale(2,2,2);
         this.leaf.display();
+        
+        this.scene.popMatrix();
     }
+
 
 }
