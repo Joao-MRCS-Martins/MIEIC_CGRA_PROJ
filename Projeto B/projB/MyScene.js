@@ -28,7 +28,7 @@ class MyScene extends CGFscene {
         
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.skybox = new MyCubeMap(this,300);
+        this.skybox = new MyCubeMap(this,200);
         this.bird = new MyBird(this,0,0);
         this.terrain = new MyTerrain(this, 60);
         this.forest = new MyForest(this);
@@ -40,7 +40,6 @@ class MyScene extends CGFscene {
             this.branches.push(new MyTreeBranch(this, Math.random() * 15 - 8, Math.random() * Math.PI, Math.random() * 15 - 8, false));
         }
         
-
         this.nest = new MyNest(this, 0, 0);                  
 
         this.house = new MyHouse(this);
@@ -48,8 +47,6 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.scaleFactor = 1;
         this.speedFactor = 1;
-
-        
     }
 
     initLights() {
@@ -59,7 +56,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 60, 60), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
