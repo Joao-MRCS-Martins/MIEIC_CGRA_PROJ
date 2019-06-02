@@ -171,7 +171,7 @@ class MyBird extends CGFobject {
     pickBranch(branches) {
         if(!this.branch) {
             for(var i = 0; i < branches.length; i++) {
-                if( Math.abs(branches[i].x -3*this.pos[0]) < 3 && Math.abs(branches[i].z -3*this.pos[2]) < 3) {
+                if( Math.abs(branches[i].x -this.pos[0]*Math.sin(this.oriented)) < 2 && Math.abs(branches[i].z -this.pos[2]*Math.cos(this.oriented)) < 2) {
                     this.branch = new MyTreeBranch(this.scene,0,0,0,false);
                     branches.splice(i,1);
                     break;
@@ -182,7 +182,7 @@ class MyBird extends CGFobject {
         this.lifting = true;
     }
     dropBranch(nest) {
-        if(Math.abs(nest.x -this.pos[0]) < 4 && Math.abs(nest.z -this.pos[2]) < 4) {
+        if(Math.abs(nest.x -this.pos[0]*Math.sin(this.oriented)) < 3 && Math.abs(nest.z -this.pos[2]*Math.cos(this.oriented)) < 3) {
             nest.drop_branches.push(new MyTreeBranch(this.scene,0,0,0,false));
             this.branch = null;
         }

@@ -112,16 +112,16 @@ class MyScene extends CGFscene {
     }
 
     updateBirdFlight(t) {
-        this.bird.updateScaleF(this.scaleFactor);
-        this.bird.update(t, this.speedFactor);
         if (this.bird.pos[1] <= 0) {
             if (this.bird.branch) {
                 this.bird.dropBranch(this.nest);
             } else
-                this.bird.pickBranch(this.branches);
-        } else if (this.bird.pos[1] >= 2.5) {
+            this.bird.pickBranch(this.branches);
+        } else if (this.bird.pos[1] >= 3) {
             this.bird.lifting = false;
         }
+        this.bird.updateScaleF(this.scaleFactor);
+        this.bird.update(t, this.speedFactor);
     }
 
     display() {
