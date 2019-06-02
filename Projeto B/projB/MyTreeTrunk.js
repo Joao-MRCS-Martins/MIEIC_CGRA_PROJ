@@ -1,7 +1,7 @@
 class MyTreeTrunk extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.tree_trunk = new MyCylinder(scene,10);
+        this.tree_trunk = new MyCylinder(scene,8);
 
         //trunk material
         this.woodAppearance = new CGFappearance(scene);
