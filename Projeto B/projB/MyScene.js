@@ -24,6 +24,7 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
         this.setUpdatePeriod(1000 / FR);
+        this.setGlobalAmbientLight(0.5,0.5,0.5,1);
         
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -47,6 +48,8 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.scaleFactor = 1;
         this.speedFactor = 1;
+
+        
     }
 
     initLights() {

@@ -55,7 +55,7 @@ class MyLightning extends MyLSystem{
         if(this.axiom.length <=1){
         this.initialTime = t;
         this.iterate();
-        this.scene.setGlobalAmbientLight(0.5,0.5,0.5,1);
+        this.scene.setGlobalAmbientLight(0.7,0.7,0.7,1);
         this.depth = 0;
         }
     }
@@ -64,7 +64,7 @@ class MyLightning extends MyLSystem{
         if(this.depth > this.axiom.length){
             this.depth = -1;
             this.axiom = "X";
-            this.scene.setGlobalAmbientLight(0.1,0.1,0.1,1);
+            this.scene.setGlobalAmbientLight(0.5,0.5,0.5,1);
         }
         
         if(this.depth >= 0)
